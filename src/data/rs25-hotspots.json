@@ -1,0 +1,200 @@
+{
+  "metresPerUnit": 2.1768001914024353,
+  "hotspots": [
+    {
+      "node": "Nozzle",
+      "label": "Regeneratively cooled nozzle",
+      "description": "Bell nozzle (expansion ratio ~69:1). Its wall is a bundle of ~1,080 brazed tubes that carry liquid hydrogen to cool it before it is burned. The paper studies this cooling approach in Section 13.",
+      "position": [
+        0.2459,
+        -0.4028,
+        0.3454
+      ],
+      "explodeDir": [
+        0,
+        -1,
+        0
+      ]
+    },
+    {
+      "node": "MainCombustionChamber",
+      "label": "Main combustion chamber",
+      "description": "Copper-alloy chamber with milled coolant channels; hydrogen and oxygen burn here at ~20 MPa before expanding through the throat.",
+      "position": [
+        0.0459,
+        0.4011,
+        0.1221
+      ],
+      "explodeDir": [
+        0,
+        -1,
+        0
+      ]
+    },
+    {
+      "node": "Powerhead",
+      "label": "Powerhead: main injector and hot-gas manifold",
+      "description": "The structural backbone: the hot-gas manifold carries turbine exhaust from both preburners into the main injector.",
+      "position": [
+        0.023,
+        0.7089,
+        0.168
+      ],
+      "explodeDir": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "node": "HPFTP",
+      "label": "High-pressure fuel turbopump + fuel preburner",
+      "description": "Raises liquid hydrogen to ~45 MPa; driven by the fuel-rich fuel preburner mounted above it (staged-combustion cycle).",
+      "position": [
+        0.3491,
+        0.47,
+        0.021
+      ],
+      "explodeDir": [
+        0.995,
+        -0.0995,
+        0
+      ]
+    },
+    {
+      "node": "HPOTP",
+      "label": "High-pressure oxidizer turbopump + oxidizer preburner",
+      "description": "Pumps liquid oxygen to the main injector and preburners; driven by the oxidizer preburner.",
+      "position": [
+        -0.317,
+        0.516,
+        -0.0019
+      ],
+      "explodeDir": [
+        -0.995,
+        -0.0995,
+        0
+      ]
+    },
+    {
+      "node": "LPFTP",
+      "label": "Low-pressure fuel turbopump",
+      "description": "Boost pump that raises hydrogen inlet pressure so the high-pressure pump does not cavitate.",
+      "position": [
+        0.1929,
+        0.9202,
+        0.2599
+      ],
+      "explodeDir": [
+        0.4511,
+        0.7018,
+        0.5514
+      ]
+    },
+    {
+      "node": "LPOTP",
+      "label": "Low-pressure oxidizer turbopump",
+      "description": "Boost pump for liquid oxygen, turbine-driven by high-pressure LOX bled from the HPOTP.",
+      "position": [
+        -0.1929,
+        0.9019,
+        0.2737
+      ],
+      "explodeDir": [
+        -0.4511,
+        0.7018,
+        0.5514
+      ]
+    },
+    {
+      "node": "PogoAccumulator",
+      "label": "POGO suppression accumulator",
+      "description": "Gas-filled sphere on the oxidizer line that damps pressure oscillations (POGO) between engine and vehicle.",
+      "position": [
+        -0.2756,
+        0.5068,
+        0.2599
+      ],
+      "explodeDir": [
+        -0.6,
+        0,
+        0.8
+      ]
+    },
+    {
+      "node": "FuelDucts",
+      "label": "Fuel ducts",
+      "description": "Low-pressure fuel discharge duct, main fuel line and the steerhorn that feeds hydrogen into the nozzle coolant manifold.",
+      "position": [
+        0.4456,
+        0.539,
+        0.1497
+      ],
+      "explodeDir": [
+        0.8,
+        0,
+        0.6
+      ]
+    },
+    {
+      "node": "OxidizerDucts",
+      "label": "Oxidizer ducts",
+      "description": "Low-pressure oxidizer discharge duct and the high-pressure line to the main oxidizer valve and injector.",
+      "position": [
+        -0.4272,
+        0.539,
+        0.1451
+      ],
+      "explodeDir": [
+        -0.8,
+        0,
+        0.6
+      ]
+    },
+    {
+      "node": "Valves",
+      "label": "Propellant valves",
+      "description": "Main fuel/oxidizer valves, chamber coolant valve and the preburner oxidizer valves that throttle the engine.",
+      "position": [
+        0.3216,
+        0.3414,
+        -0.1857
+      ],
+      "explodeDir": [
+        0,
+        0,
+        -1
+      ]
+    },
+    {
+      "node": "GimbalBearing",
+      "label": "Gimbal bearing",
+      "description": "Ball-and-socket thrust mount; hydraulic actuators swivel the engine about it for steering.",
+      "position": [
+        0,
+        0.9616,
+        -0.0019
+      ],
+      "explodeDir": [
+        0,
+        1,
+        0
+      ]
+    },
+    {
+      "node": "EngineController",
+      "label": "Engine controller",
+      "description": "Digital controller that runs closed-loop thrust and mixture-ratio control and engine health monitoring.",
+      "position": [
+        0.2527,
+        0.4333,
+        0.2232
+      ],
+      "explodeDir": [
+        0.6,
+        0,
+        0.8
+      ]
+    }
+  ]
+}

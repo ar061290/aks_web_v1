@@ -1,0 +1,2935 @@
+{
+  "format": {
+    "source": "Project AKS original proposal (typeset edition), 31 pages; transcribed in full and cross-checked against rendered page images.",
+    "prose": "All prose strings are plain Unicode text (N₂O₄, m³, °C, Δv, ρ, ≈, − U+2212, curly quotes as printed). No HTML is used in prose.",
+    "inlineMath": "Inline mathematics that plain Unicode cannot express (e.g. variables with multi-letter subscripts such as m_f, m_UDMH, P_sea level) is embedded in prose as KaTeX inline math delimited by \\( and \\). Render with KaTeX auto-render using delimiters [{left:'\\\\(', right:'\\\\)', display:false}]. Dollar signs in prose are literal currency, never math delimiters.",
+    "displayMath": "Every `latex` field is a KaTeX-compatible display-math string WITHOUT delimiters. The sentence punctuation that follows the equation in print (\",\" or \".\") is given separately in `punctuation`. Equations are transcribed exactly as printed, including the original proposal’s errors (catalogued in Appendix A).",
+    "equationGroups": "Equations sharing a `group` value (e.g. \"23-26\") are printed as one aligned display block in the paper.",
+    "footnotes": "Footnote markers appear in prose as Unicode superscript digits (¹–⁷); the footnote objects carry the same `marker`. All seven footnotes are also collected in the top-level `footnotes` array.",
+    "runInHeadings": "`title` fields of run-in headings keep the trailing full stop exactly as printed in bold (e.g. \"Efficiency.\"); headings printed without a full stop (e.g. \"Engine power cycles\") have none.",
+    "emphasis": "Phrases printed in italics inside prose are listed in an `emphasis` array on that object; the 11.3 reference block is printed entirely in italics (`italic: true`). References carry an `html` field with <i>/<b> reproducing the printed italics and bold.",
+    "citations": "Bracketed numerals such as [2] are kept literally. In section 16 (sources) they refer to the `references` list and are also extracted into `refs` arrays; in section 11.3 they are the original proposal’s own markers and do NOT refer to the reference list.",
+    "pages": "`page` values are the printed page numbers (PDF page minus one; the title page is unnumbered)."
+  },
+  "meta": {
+    "title": "Project AKS: A Feasibility Study of a Balloon-Assisted Reusable Hypergolic Sounding Rocket for Low-Cost Near-Space Access",
+    "titleLines": [
+      "Project AKS: A Feasibility Study of a",
+      "Balloon-Assisted Reusable Hypergolic Sounding Rocket",
+      "for Low-Cost Near-Space Access"
+    ],
+    "shortTitle": "Project AKS",
+    "subtitle": "A Feasibility Study of a Balloon-Assisted Reusable Hypergolic Sounding Rocket for Low-Cost Near-Space Access",
+    "runningHead": {
+      "left": "Project AKS",
+      "right": "Preprint"
+    },
+    "authors": [
+      "Aadi Ramnani",
+      "Karthikeya Aduru",
+      "Bala Mysura Sreethan Reddy"
+    ],
+    "affiliation": "CHIREC International School, Hyderabad, Telangana, India",
+    "date": "29 Oct 2026",
+    "keywords": [
+      "hypergolic propulsion",
+      "UDMH",
+      "dinitrogen tetroxide",
+      "rockoon",
+      "high-altitude balloon",
+      "near-space access",
+      "Tsiolkovsky rocket equation",
+      "reusable launch vehicle",
+      "low-cost access to space",
+      "STEM education"
+    ],
+    "abstractTitle": "Abstract.",
+    "abstract": "Project AKS was a student-led aerospace proposal, co-authored by the present authors, to design and fly a reusable hypergolic sounding rocket on a total budget below USD 25,000 (≈ INR 2,00,000). The mission concept aimed to make the vehicle the highest-flying student-led rocket in the world, attaining an apogee of roughly 70–100 km depending on the convention of measurement adopted, by releasing the rocket from an altitude of approximately 30 km beneath a hydrogen-filled high-altitude balloon rather than from a ground launch pad. The underlying motivation was to initiate a school-based, student-led sequence of innovations directed at reducing the cost of space research and space travel, with an explicit emphasis on sustainability realised through the reuse and recovery of vehicle materials. The high cost of space research, which is typically inaccessible to ordinary citizens, was identified as producing a global deficit in rocketry exposure for school students. This document records the propellant selection (unsymmetrical dimethylhydrazine, UDMH, with dinitrogen tetroxide, N₂O₄), the hazard assessment and proposed mitigation, the balloon-assisted launch architecture, component-level material selection, feed-system and engine-cycle studies, injector and nozzle selection, five candidate cooling strategies, the propellant-mass and lift-gas calculations, the balloon platform trade study, the regulatory permits identified as necessary, and the full bill of materials. The project was initiated in Stage 8 at the age of 13 (2022) and closed during IGCSE (Stage 9/10) owing to academic priorities. It was presented to the school principal and commended, but never left paper, on account of permit requirements, an absence of expert supervision, and the potential carcinogenic properties of the selected fuel.",
+    "editionNoteTitle": "Note on this edition.",
+    "editionNote": "This document is a typeset transcription, in preprint format, of the original Project AKS proposal written in 2022–2023. The technical content, argument, terminology, and numerical results of the original proposal have been preserved in full and without omission; the editorial work has been confined to organisation, sectioning, typesetting of equations and tables, and the addition of figure captions. Where the original proposal contained internal inconsistencies, arithmetic slips, or unit errors, these have been reproduced faithfully in the body of the paper and are catalogued separately in Appendix A, so that the original record and the subsequent review remain clearly distinguishable. Sources for all figures are listed in Section 16.8."
+  },
+  "toc": [
+    {
+      "number": "1",
+      "title": "Provenance, Scope, and Status of the Project",
+      "page": 3,
+      "key": "provenance"
+    },
+    {
+      "number": "2",
+      "title": "Introduction and Motivation",
+      "page": 3,
+      "key": "motivation"
+    },
+    {
+      "number": "3",
+      "title": "Propellant Selection",
+      "page": 3,
+      "key": "propellant",
+      "children": [
+        {
+          "number": "3.1",
+          "title": "The chosen propellant combination",
+          "page": 3
+        },
+        {
+          "number": "3.2",
+          "title": "Advantages of the chosen propellant",
+          "page": 4
+        },
+        {
+          "number": "3.3",
+          "title": "Hazards",
+          "page": 5
+        },
+        {
+          "number": "3.4",
+          "title": "Hazard mitigation",
+          "page": 5
+        }
+      ]
+    },
+    {
+      "number": "4",
+      "title": "Mission Architecture and Design",
+      "page": 5,
+      "key": "architecture",
+      "children": [
+        {
+          "number": "4.1",
+          "title": "Balloon-assisted ascent",
+          "page": 5
+        },
+        {
+          "number": "4.2",
+          "title": "Release, ignition, and the propulsion train",
+          "page": 6
+        },
+        {
+          "number": "4.3",
+          "title": "Airframe, thermal protection, and payload bay",
+          "page": 6
+        }
+      ]
+    },
+    {
+      "number": "5",
+      "title": "Propellant Feed System and Engine Cycle Studies",
+      "page": 7,
+      "key": "feedSystem"
+    },
+    {
+      "number": "6",
+      "title": "Materials",
+      "page": 9,
+      "key": "materials"
+    },
+    {
+      "number": "7",
+      "title": "Fuel Injector",
+      "page": 9,
+      "key": "injector"
+    },
+    {
+      "number": "8",
+      "title": "Nozzles to be Used",
+      "page": 10,
+      "key": "nozzle"
+    },
+    {
+      "number": "9",
+      "title": "Cooling",
+      "page": 10,
+      "key": "cooling"
+    },
+    {
+      "number": "10",
+      "title": "Rationale and Projected Impact",
+      "page": 11,
+      "key": "rationale"
+    },
+    {
+      "number": "11",
+      "title": "Calculations",
+      "page": 11,
+      "key": "calculations",
+      "children": [
+        {
+          "number": "11.1",
+          "title": "Headline figures",
+          "page": 11
+        },
+        {
+          "number": "11.2",
+          "title": "Propellant mass from the Tsiolkovsky rocket equation",
+          "page": 12
+        },
+        {
+          "number": "11.3",
+          "title": "Reference performance data for the UDMH/N₂O₄ system",
+          "page": 14
+        },
+        {
+          "number": "11.4",
+          "title": "Hydrogen requirement from buoyancy",
+          "page": 14
+        },
+        {
+          "number": "11.5",
+          "title": "Final values",
+          "page": 17
+        }
+      ]
+    },
+    {
+      "number": "12",
+      "title": "Balloon Platform Selection",
+      "page": 17,
+      "key": "balloon",
+      "children": [
+        {
+          "number": "12.1",
+          "title": "Research balloons compared with weather balloons",
+          "page": 17
+        },
+        {
+          "number": "12.2",
+          "title": "Medium scientific balloons",
+          "page": 18
+        },
+        {
+          "number": "12.3",
+          "title": "Volume capacity",
+          "page": 19
+        }
+      ]
+    },
+    {
+      "number": "13",
+      "title": "Permits Required",
+      "page": 20,
+      "key": "permits"
+    },
+    {
+      "number": "14",
+      "title": "Bill of Materials",
+      "page": 20,
+      "key": "bom"
+    },
+    {
+      "number": "15",
+      "title": "3D Engine Renders",
+      "page": 21,
+      "key": "renders"
+    },
+    {
+      "number": "16",
+      "title": "Sources",
+      "page": 22,
+      "key": "sources",
+      "children": [
+        {
+          "number": "16.1",
+          "title": "Equations",
+          "page": 22
+        },
+        {
+          "number": "16.2",
+          "title": "Propellant and combustion data",
+          "page": 23
+        },
+        {
+          "number": "16.3",
+          "title": "Material properties",
+          "page": 23
+        },
+        {
+          "number": "16.4",
+          "title": "Engine architecture, components, and specific models",
+          "page": 24
+        },
+        {
+          "number": "16.5",
+          "title": "Balloon platform",
+          "page": 24
+        },
+        {
+          "number": "16.6",
+          "title": "Costs",
+          "page": 24
+        },
+        {
+          "number": "16.7",
+          "title": "Regulatory instruments",
+          "page": 24
+        },
+        {
+          "number": "16.8",
+          "title": "Figures",
+          "page": 25
+        }
+      ]
+    },
+    {
+      "number": "",
+      "title": "References",
+      "page": 25,
+      "key": "references"
+    },
+    {
+      "number": "A",
+      "title": "Editorial and Technical Notes on the Reproduced Analysis",
+      "page": 27,
+      "key": "appendix",
+      "children": [
+        {
+          "number": "A.1",
+          "title": "Reported values that differ between sections",
+          "page": 28
+        },
+        {
+          "number": "A.2",
+          "title": "The Δv derivation",
+          "page": 28
+        },
+        {
+          "number": "A.3",
+          "title": "The buoyancy derivation",
+          "page": 29
+        },
+        {
+          "number": "A.4",
+          "title": "The cost argument",
+          "page": 29
+        },
+        {
+          "number": "A.5",
+          "title": "Hazard assessment",
+          "page": 30
+        },
+        {
+          "number": "A.6",
+          "title": "Summary",
+          "page": 30
+        }
+      ]
+    }
+  ],
+  "provenance": {
+    "number": "1",
+    "title": "Provenance, Scope, and Status of the Project",
+    "paragraphs": [
+      "Project AKS was a proposal, co-authored by the present authors, to build a hypergolic student-led rocket with a budget of only <25,000 USD, or approximately 2,00,000 INR. The team aimed to build the highest student-led rocket in the world, reaching up to 70–100 km in height, depending upon the conventions of measurement adopted, since the rocket launch would occur at a height of approximately 30 km with support from a weather balloon.",
+      "The key purpose was to initiate a school student-led series of innovations, and progress toward reducing the cost of space research and space travel, with a special focus on sustainability, which in the team’s conception was to be achieved through the reusability of materials. The high cost of space research, often inaccessible to locals or to ordinary citizens, created a lack of space and rocketry exposure for students, which the team felt was a global challenge.",
+      "The project was initialised in Stage 8 at the age of 13 (2022) and was closed during IGCSE (Stage 9/10) owing to academic priorities. The team had planned to use hypergolic propellants so that the range of conditions permitting high-efficiency combustion would be wider. Research was carried out on various forms of cooling in order to find something cheap but practical. The proposal was sent to the school principal, presented, and commended. The project nevertheless never left paper, on account of permit requirements, a lack of expert guidance, the potential carcinogenic properties of the fuel that had been selected, and related factors."
+    ]
+  },
+  "motivation": {
+    "number": "2",
+    "title": "Introduction and Motivation",
+    "paragraphs": [
+      "Rockets are magnificent inventions that functioned as the rocket fuel which propelled physics and mathematics to a level far beyond the moon. It was rockets that ignited every schoolboy’s dream of going to space and staring at the earth below him. It was rockets, and the idea of space travel, that made our minds consider the possibility of extra-terrestrial organisms. And most of all it was rockets that made us dream of having colonies in other worlds — the dream of expanding and exploring where no man has ever been before. And now it is our dream to prove to the world that CHIREC and its students can go to space; even though not physically, we can create a rocket that can, harnessing the wonders of physics, robotics, and the power of chemical reactions.",
+      "We strongly believe that we have the potential to achieve this herculean feat. We even have a great sustainability advantage, as we can accomplish most tasks in our very own campus and chemistry laboratory if we have the trained personnel. In addition, our rocket is completely reusable, and all of its components can be tracked, collected, refilled, and reused. Project AKS is our chance at proving to the world, and to India, that future scientists are more than capable of bringing Indian agencies such as ISRO to insurmountable amounts of glory, like those of NASA, SpaceX, and Roscosmos."
+    ]
+  },
+  "propellant": {
+    "number": "3",
+    "title": "Propellant Selection",
+    "chosen": {
+      "number": "3.1",
+      "title": "The chosen propellant combination",
+      "paragraphs": [
+        "We have already identified an optimal propellant, characterised by its high density, low freezing point, and a remarkable specific impulse of 316.7 seconds. This propellant, unsymmetrical dimethylhydrazine (UDMH), is expertly paired with a non-oxygen oxidizer, dinitrogen tetroxide (N₂O₄), in a balanced 3:2 oxidizer-to-fuel ratio.¹ Our fuel is 100% hypergolic.",
+        "Hypergolic fuels are an amazing combination, in which we do not need to rely on failing or potentially unreliable ignition systems and possibly malfunctioning electrical engineering. The approach leverages the inherent chemistry of instantaneous reactions, ensuring mission success irrespective of potential machinery issues. In addition, the hypergolic state allows high density compared with liquid propellants, and does not require near-absolute-zero tanks like those of cryogenic propellants. With our formula and helpful testing from the chemistry division, our idea has a very likely chance of success. With this formulation and promising results from static fire tests, our project demonstrates a highly favourable prospect for success."
+      ],
+      "footnotes": [
+        {
+          "n": 1,
+          "marker": "¹",
+          "section": "3.1",
+          "text": "The 3:2 ratio is described here as oxidizer-to-fuel, but it is applied in Section 11 as \\(m_{\\text{UDMH}} : m_{\\mathrm{N_2O_4}} = 3{:}2\\), i.e. as a fuel-to-oxidizer ratio. Both statements are reproduced as they appeared in the original proposal; see Appendix A."
+        }
+      ],
+      "figureRefs": [
+        "1"
+      ]
+    },
+    "fuel": {
+      "name": "Unsymmetrical dimethylhydrazine",
+      "abbr": "UDMH",
+      "formula": "(CH₃)₂NNH₂",
+      "density": "0.793 g/cc",
+      "freezingPoint": "−57 °C",
+      "dataSource": "Section 11.3 reference block; Section 16.2"
+    },
+    "oxidizer": {
+      "name": "Dinitrogen tetroxide",
+      "abbr": "N₂O₄",
+      "formula": "N₂O₄",
+      "density": "1.450 g/cc",
+      "freezingPoint": "−11 °C",
+      "dataSource": "Section 11.3 reference block; Section 16.2"
+    },
+    "isp": "316.7 s",
+    "ispNote": "Sections 1 and 3 quote 316.7 s; the calculations in Section 11 and Table 1 use 317.6 s (footnote 6; Appendix A, note a).",
+    "ispCalculations": "317.6 s",
+    "ratio": "3:2",
+    "ratioNote": "Described as oxidizer-to-fuel in Section 3.1 but applied as m_UDMH : m_N₂O₄ = 3:2 in Section 11 (footnote 1; Appendix A, note d).",
+    "hypergolic": "100%",
+    "advantagesNumber": "3.2",
+    "advantagesTitle": "Advantages of the chosen propellant",
+    "advantagesIntro": "The following advantages were recorded for the selected propellant combination.",
+    "advantages": [
+      "Fuel requirement of less space for storage.",
+      "Higher calorific value.",
+      "Easy handling and transportation.",
+      "Better control of consumption by using valves and number of burners.",
+      "Absence of danger from spontaneous combustion.",
+      "Better cleanliness and absence of dust.",
+      "Absence of ash problems.",
+      "No problem of corrosion and deterioration during storage.",
+      "Higher combustion efficiency.",
+      "Do not need to rely on failing ignition systems.",
+      "High density compared with solid propellants.",
+      "Does not require near-absolute-zero tanks like those of cryogenic propellants.",
+      "Liquid at room temperature.",
+      "Has a higher-pressure rate for larger combustions.",
+      "Does not require a launch pad or electric plumbing to spark the fuel.",
+      "Nearly twice the specific impulse of ammonium perchlorate (another popular fuel), 1.8 to 2.4 km/s specific impulse (ammonium perchlorate) versus 316.7 s specific impulse (monomethyl hydrazine), oxidizer (dinitrogen tetroxide / nitric acid — preferably). Although the rocket sacrifices in Iₛₚ compared with cryogenic propellants such as LOX and LH2 (420), for the price and ease of handling it is worth the sacrifice.²",
+      "Does not require a launch pad or electric plumbing to spark the fuel.",
+      "The oxidizer is liquid at room temperature, which can be used to the advantage of the injector.",
+      "The particles are very thin compared with most multi-compound gases, which in turn enables higher collisions.",
+      "It has a combustion time of 0.31 seconds.",
+      "The propellants can be carried by a low-density gas such as helium, since both our oxidizer and fuel are non-reactive to helium, so we do not need turbopumps and pressure dynamics to push the propellants to the combustion chamber."
+    ],
+    "advantagesNote": "The bullet “Does not require a launch pad or electric plumbing to spark the fuel.” appears twice in the paper (items 15 and 17); both occurrences are kept.",
+    "advantagesFootnotes": [
+      {
+        "n": 2,
+        "marker": "²",
+        "section": "3.2",
+        "text": "Reproduced as written. Note that the comparison places an exhaust velocity in km/s alongside a specific impulse in seconds, and that the propellant named in this line is monomethyl hydrazine (MMH) rather than UDMH. See Appendix A."
+      }
+    ],
+    "hazards": {
+      "number": "3.3",
+      "title": "Hazards",
+      "paragraphs": [
+        "There is only one hazard of this fuel: dimethylhydrazine is slightly carcinogenic pre-combustion, and highly flammable."
+      ]
+    },
+    "mitigation": {
+      "number": "3.4",
+      "title": "Hazard mitigation",
+      "paragraphs": [
+        "Dimethylhydrazine demonstrates a slight carcinogenic risk prior to ignition. However, we have devised a practical solution to address this concern. Our approach involves providing our tank specifications to the suppliers, ensuring that the tank can accommodate the precise quantity of unsymmetrical dimethylhydrazine required. This same tank will serve as the core component for our mini rocket. This streamlined process enables the supplier to fill our tank directly, eliminating the need for intermediate transfers and minimising our exposure to the chemical.",
+        "Moreover, even in the rare scenario of exposure, the associated risk is minimal, lasting for just 2 to 3 minutes. This is due to the fact that unsymmetrical dimethylhydrazine remains in liquid form at room temperature and releases fumes at a notably slow rate owing to its low vapour density. Additionally, once the fuel is safely stored in our tanks, there is no need for further manual intervention, as all functions can be automated through valve connections.",
+        "Furthermore, our pipes will be fabricated using highly corrosion-resistant SS321 (which has added titanium) and bolstered with multiple fill and drain valves. This approach effectively invalidates any potential shortcomings, rendering the project entirely foolproof."
+      ]
+    }
+  },
+  "architecture": {
+    "number": "4",
+    "title": "Mission Architecture and Design",
+    "ascent": {
+      "number": "4.1",
+      "title": "Balloon-assisted ascent",
+      "paragraphs": [
+        "On the design aspects of this endeavour, we have come up with an ingenious idea that can revolutionise space travel. Being completely original in large-scale high-mass rockets, using high-altitude research balloons can significantly reduce the cost of our project by nearly 25–30%. It involves strapping our rocket to a high-altitude hydrogen balloon, which will balance our rocket until it reaches the point of a whopping 30 km high. In order to achieve this altitude, we have pushed the buoyancy and gas laws to the absolute limit and found our perfect gas: hydrogen.",
+        "In specific, 250 kg of hydrogen and a 300 kg rocket. Hydrogen is the lightest and one of the most abundant elements in nature. Complemented by its low price and harmless environmental impact, it increases efficiency while being nearly 40% more environmentally friendly than other giant space projects, making the first step into environmentally friendly rockets."
+      ],
+      "figureRefs": [
+        "2"
+      ]
+    },
+    "release": {
+      "number": "4.2",
+      "title": "Release, ignition, and the propulsion train",
+      "paragraphs": [
+        "At an altitude of 30 km the balloon pops, since the atmospheric pressure is too low. So, at an altitude of around 29 km, which will be detected using a barometric altimeter, the showerhead fuel injectors will be programmed to spray the oxidizer and fuel into the combustion chamber, which is made of graphite instead of SS 301 owing to the high temperature created by the reaction. The combustion chamber is connected to the exhaust nozzle, also made of graphite for the same reason, whose nozzle ratio will be 36.4 if a bell nozzle is used.³"
+      ],
+      "footnotes": [
+        {
+          "n": 3,
+          "marker": "³",
+          "section": "4.2",
+          "text": "Section 8 states the intention to use an aerospike nozzle, and the bill of materials in Section 14 lists an aerospike with an expansion ratio given as 35:5. All three figures are reproduced as they appeared in the original proposal; see Appendix A."
+        }
+      ]
+    },
+    "airframe": {
+      "number": "4.3",
+      "title": "Airframe, thermal protection, and payload bay",
+      "paragraphs": [
+        "When we come to the actual rocket part of our project, we will build a 301 stainless-steel alloy model of the rocket, coated with polyurethane, which crucially protects the outer shell and body from harsh heating while near the ozone layer as well as while crossing the Kármán line. We also created a plan to transfer the oxidizer to the fuel chamber via metal valves controlled by an application or program.",
+        "In order for our rocket to be recorded and filmed, we have also created a chamber at the top of our rocket, with a mass of 5–6 kg, to place equipment that the school would like to send to space, along with cameras fitted at three different angles to capture the majestic launch."
+      ]
+    }
+  },
+  "feedSystem": {
+    "number": "5",
+    "title": "Propellant Feed System and Engine Cycle Studies",
+    "paragraphs": [
+      "The original proposal presented a sequence of feed-system and engine-cycle schematics that informed the architecture. These are reproduced in Figures 3a–6. The team’s own feed-system concept (Figure 3a) is a helium-pressurised arrangement in which a 5000 psi helium vessel feeds a pressure regulator, which in turn pressurises the UDMH fuel tank and the N₂O₄ oxidizer tank, each held at 3000 psi, with low-pressure fuel-rich and oxidizer-rich turbopumps downstream. The numbered annotations in the figure denote the ordering of the feed and pressurisation steps."
+    ],
+    "figureRefs": [
+      "3a",
+      "3b",
+      "4",
+      "5",
+      "6"
+    ]
+  },
+  "materials": {
+    "number": "6",
+    "title": "Materials",
+    "intro": "Material selection was carried out component by component, as follows.",
+    "items": [
+      {
+        "component": "The exterior of the rocket",
+        "material": "stainless steel 301",
+        "heading": "The exterior of the rocket: stainless steel 301.",
+        "text": "AISI 301 stainless steel (UNS S30100) is the most susceptible to cold-deformation strengthening among conventional austenitic stainless steels. Its work-hardening rate is extremely high: with each increase in the amount of cold work, the tensile strength and yield strength increase significantly."
+      },
+      {
+        "component": "The tanks",
+        "material": "stainless steel 321",
+        "heading": "The tanks: stainless steel 321.",
+        "text": "AISI 321 stainless steel (SS321) is basically type 304 with the addition of titanium (Ti), which stabilises carbides against sensitisation, so as to prevent intergranular precipitation of chromium carbide when the steel is heated to a temperature within the sensitisation range, such as during welding."
+      },
+      {
+        "component": "The nozzle",
+        "material": "SS 316 or graphite",
+        "heading": "The nozzle: SS 316 or graphite.",
+        "text": "Final material selection is to be determined through thermal dissipation and strength at high temperatures and erosion testing and research."
+      },
+      {
+        "component": "The plumbing",
+        "material": "SS 321",
+        "heading": "The plumbing: SS 321.",
+        "text": "For regenerative cooling pipes, SS 301."
+      },
+      {
+        "component": "The valves",
+        "material": "titanium",
+        "heading": "The valves: titanium.",
+        "text": ""
+      }
+    ]
+  },
+  "injector": {
+    "number": "7",
+    "title": "Fuel Injector",
+    "intro": "We have chosen a showerhead fuel injector, because such injectors possess the following qualities, which we need for our hypergolic fuel.",
+    "qualities": [
+      {
+        "title": "Efficiency.",
+        "text": "Showerhead injectors are known for promoting efficient mixing of propellants, which can lead to better overall combustion efficiency. A higher combustion efficiency can contribute to a higher specific impulse, all else being equal."
+      },
+      {
+        "title": "Performance.",
+        "text": "A specific impulse of 316.7 seconds indicates that the engine is already designed for good performance. A showerhead injector can help maintain or enhance this performance."
+      },
+      {
+        "title": "Thrust control.",
+        "text": "While showerhead injectors are often associated with larger engines, they can be designed for variable thrust and precise control, especially with adjustable injector designs."
+      },
+      {
+        "title": "Combustion stability.",
+        "text": "A showerhead injector can contribute to combustion stability, which is crucial for maintaining a high specific impulse and achieving high-speed, high-altitude flights."
+      },
+      {
+        "title": "Thorough mixing.",
+        "text": "The even distribution of propellants in a showerhead injector can lead to thorough mixing, reducing the risk of unburned propellants and increasing overall efficiency."
+      }
+    ],
+    "figureRefs": [
+      "7a"
+    ]
+  },
+  "nozzle": {
+    "number": "8",
+    "title": "Nozzles to be Used",
+    "paragraphs": [
+      "We plan to implement a late 1990s innovation by integrating it with modern technologies. This innovation is known as the aerospike nozzle."
+    ],
+    "figureRefs": [
+      "7b"
+    ]
+  },
+  "cooling": {
+    "number": "9",
+    "title": "Cooling",
+    "intro": "Five candidate cooling strategies were identified for investigation:",
+    "methods": [
+      "Heat sinks",
+      "Ablative cooling",
+      "Regenerative cooling",
+      "Film cooling",
+      "Radiative cooling"
+    ],
+    "figureRefs": [
+      "8a",
+      "8b"
+    ]
+  },
+  "rationale": {
+    "number": "10",
+    "title": "Rationale and Projected Impact",
+    "paragraphs": [
+      "Our conclusions suggest that we can reduce the price of space travel, and crash the aerospace stock market, if our project is successful. It will make aerospace voyaging more affordable. This is because the average cost of sending 1 kg to space is $4,000–$10,000, and our model can reduce that price to $1,000–$2,500, owing to our balloon epiphany.⁴",
+      "All in all, our progress is extensive. In the future, if our rocket succeeds, we plan to use thrust-to-weight formulae and GPS research to predict the location of our rocket and parachute post-ejection. We are also working on new and better nozzle designs based on the Titan rockets as well as the new NASA Artemis.",
+      "Now, we all may be wondering a fundamental question. Why us? And why this project? The question of why has fascinated us for eras upon eras. And even though it is a tough question to ask, it may be one of the simplest to answer. Why did Edmund Hillary climb Mount Everest? Because he saw a mountain and climbed it. And why did he climb the mountain he had just seen? Because he could. Why did NASA launch Armstrong to the moon, and Roscosmos launch Yuri Gagarin into space? Many of us would be speechless. But the answer was simple. Because they can. Because they could prove that mankind has no limits. The sky is no limit when there is a vast and endless void above the atmosphere. Space — the final frontier. And those technological giants saw it and wanted to conquer it. Why? Because they can."
+    ],
+    "footnotes": [
+      {
+        "n": 4,
+        "marker": "⁴",
+        "section": "10",
+        "text": "The consistency of this figure with the project’s own budget and payload mass is examined in Appendix A."
+      }
+    ]
+  },
+  "calculations": {
+    "number": "11",
+    "title": "Calculations",
+    "headlineNumber": "11.1",
+    "headlineTitle": "Headline figures",
+    "headline": [
+      {
+        "label": "UDMH",
+        "value": "90.76 kg",
+        "text": "UDMH: 90.76 kg"
+      },
+      {
+        "label": "Dinitrogen tetroxide",
+        "value": "60.91 kg",
+        "footnote": 5,
+        "text": "Dinitrogen tetroxide: 60.91 kg⁵"
+      },
+      {
+        "label": "Medium-to-large-size research balloon",
+        "value": "258.42 kg of hydrogen",
+        "text": "Medium-to-large-size research balloon: 258.42 kg of hydrogen"
+      },
+      {
+        "label": "Balloon reaches a height of",
+        "value": "30–40 km (30% of the way to space)",
+        "text": "Balloon reaches a height of 30–40 km (30% of the way to space)"
+      }
+    ],
+    "headlineFootnotes": [
+      {
+        "n": 5,
+        "marker": "⁵",
+        "section": "11.1",
+        "text": "This headline figure reads 60.91 kg, whereas the derivation in Section 11.2 and the summary in Section 11.5 both give 60.51 kg. Both values are reproduced as they appear; see Appendix A."
+      }
+    ],
+    "rocketEquation": {
+      "number": "11.2",
+      "title": "Propellant mass from the Tsiolkovsky rocket equation",
+      "readingOrder": [
+        "intro",
+        "formula",
+        "where",
+        "conditions",
+        "steps",
+        "conclusion"
+      ],
+      "intro": "To find out how much UDMH and N₂O₄ propellant is required for our rocket to reach an altitude of 100 km from an initial altitude of 29 km using the Tsiolkovsky rocket equation, we can use the following formula:",
+      "formula": {
+        "text": "",
+        "latex": "\\Delta v = I_{\\mathrm{sp}}\\, g_0 \\ln\\left(\\frac{m_0}{m_f}\\right)",
+        "eq": 1,
+        "punctuation": ","
+      },
+      "where": "where Δv is the change in velocity required to reach the desired altitude, Iₛₚ is the specific impulse of the rocket engine, g₀ is the standard acceleration due to gravity (approximately 9.81 m/s²), m₀ is the initial mass of the rocket including propellant, and \\(m_f\\) is the final mass of the rocket after propellant is expended.",
+      "conditions": "The following conditions apply. UDMH and N₂O₄ are used at a 3:2 ratio. Iₛₚ = 317.6 seconds.⁶ The mass of the empty rocket without propellant, that is the structural mass, is 150 kg. The initial altitude is 29 km, and the final altitude is 100 km measured from 29 km, that is a change in altitude of 100 − 29 = 71 km.",
+      "steps": [
+        {
+          "text": "First, calculate Δv:",
+          "latex": "\\Delta v = I_{\\mathrm{sp}}\\, g_0 \\ln\\left(\\frac{m_0}{m_f}\\right)",
+          "eq": 2,
+          "punctuation": "."
+        },
+        {
+          "text": "To calculate \\(m_f\\), the final mass of the rocket, we need to take into account the mass of propellant \\(m_{\\text{propellant}}\\) used:",
+          "latex": "m_f = m_0 - m_{\\text{propellant}}",
+          "eq": 3,
+          "punctuation": "."
+        },
+        {
+          "text": "Now we can use the Tsiolkovsky rocket equation in conjunction with the rocket equation to solve for the mass of propellant required:",
+          "latex": "\\Delta v = I_{\\mathrm{sp}}\\, g_0 \\ln\\left(\\frac{m_0}{m_0 - m_{\\text{propellant}}}\\right)",
+          "eq": 4,
+          "punctuation": "."
+        },
+        {
+          "text": "Given that UDMH and N₂O₄ are used at a 3:2 ratio, we can assume the mass of UDMH is 3x and the mass of N₂O₄ is 2x:",
+          "latex": "m_{\\text{propellant}} = m_{\\text{UDMH}} + m_{\\mathrm{N_2O_4}}",
+          "eq": 5,
+          "punctuation": "."
+        },
+        {
+          "text": "Since the propellant ratio is 3:2, we can express \\(m_{\\text{UDMH}}\\) in terms of \\(m_{\\mathrm{N_2O_4}}\\):",
+          "latex": "m_{\\text{UDMH}} = \\tfrac{3}{2}\\, m_{\\mathrm{N_2O_4}}",
+          "eq": 6,
+          "punctuation": "."
+        },
+        {
+          "text": "Now we can rewrite \\(m_{\\text{propellant}}\\) in terms of \\(m_{\\mathrm{N_2O_4}}\\):",
+          "latex": "m_{\\text{propellant}} = \\tfrac{3}{2} m_{\\mathrm{N_2O_4}} + m_{\\mathrm{N_2O_4}} = \\tfrac{5}{2}\\, m_{\\mathrm{N_2O_4}}",
+          "eq": 7,
+          "punctuation": "."
+        },
+        {
+          "text": "Now, plug this expression for \\(m_{\\text{propellant}}\\) into the Tsiolkovsky rocket equation:",
+          "latex": "\\Delta v = I_{\\mathrm{sp}}\\, g_0 \\ln\\left(\\frac{m_0}{m_0 - \\tfrac{5}{2} m_{\\mathrm{N_2O_4}}}\\right)",
+          "eq": 8,
+          "punctuation": "."
+        },
+        {
+          "text": "We can also express m₀, the initial mass of the rocket, as the sum of the structural mass and the mass of propellant:",
+          "latex": "m_0 = m_{\\text{structural}} + m_{\\text{propellant}}",
+          "eq": 9,
+          "punctuation": "."
+        },
+        {
+          "text": "Given that the structural mass is 150 kg, we can rewrite m₀ as:",
+          "latex": "m_0 = 150\\ \\mathrm{kg} + \\tfrac{5}{2} m_{\\mathrm{N_2O_4}}",
+          "eq": 10,
+          "punctuation": "."
+        },
+        {
+          "text": "Now we have an equation with one variable, \\(m_{\\mathrm{N_2O_4}}\\). We want to solve for \\(m_{\\mathrm{N_2O_4}}\\), which represents the mass of N₂O₄ needed. Next, plug in the values:",
+          "latex": "\\Delta v = 317.6 \\times 9.81 \\times \\ln\\left(\\frac{150\\ \\mathrm{kg} + \\tfrac{5}{2} m_{\\mathrm{N_2O_4}}}{\\left(150\\ \\mathrm{kg} + \\tfrac{5}{2} m_{\\mathrm{N_2O_4}}\\right) - \\tfrac{5}{2} m_{\\mathrm{N_2O_4}}}\\right)",
+          "eq": 11,
+          "punctuation": ",",
+          "group": "11-12"
+        },
+        {
+          "text": "",
+          "latex": "\\Delta v = 3115.416 \\times \\ln\\bigl(1 + \\tfrac{5}{2}\\bigr)",
+          "eq": 12,
+          "punctuation": ".",
+          "group": "11-12"
+        },
+        {
+          "text": "Now, calculate the natural logarithm term:",
+          "latex": "\\ln\\bigl(1 + \\tfrac{5}{2}\\bigr) \\approx \\ln(2.5) \\approx 0.91629",
+          "eq": 13,
+          "punctuation": "."
+        },
+        {
+          "text": "Now, substitute this value back into the equation for Δv:",
+          "latex": "\\Delta v \\approx 3115.416 \\times 0.91629, \\qquad \\Delta v \\approx 2854.72\\ \\mathrm{m/s}",
+          "eq": 14,
+          "punctuation": "."
+        },
+        {
+          "text": "Now we have the required change in velocity to reach the desired altitude. To find the mass of propellant required, we can use the rocket equation:",
+          "latex": "\\Delta v = I_{\\mathrm{sp}}\\, g_0 \\ln\\left(\\frac{m_0}{m_f}\\right)",
+          "eq": 15,
+          "punctuation": ",",
+          "group": "15-16"
+        },
+        {
+          "text": "",
+          "latex": "\\Delta v = 317.6 \\times 9.81 \\times \\ln\\left(\\frac{m_0}{m_f}\\right)",
+          "eq": 16,
+          "punctuation": ".",
+          "group": "15-16"
+        },
+        {
+          "text": "Now, rearrange the equation to solve for \\(m_f\\):",
+          "latex": "m_f = \\frac{m_0}{\\mathrm{e}^{\\Delta v/(I_{\\mathrm{sp}} g_0)}}",
+          "eq": 17,
+          "punctuation": ",",
+          "group": "17-19"
+        },
+        {
+          "text": "",
+          "latex": "m_f = \\frac{150\\ \\mathrm{kg} + \\tfrac{5}{2} m_{\\mathrm{N_2O_4}}}{\\mathrm{e}^{2854.72/(317.6 \\times 9.81)}}",
+          "eq": 18,
+          "punctuation": ",",
+          "group": "17-19"
+        },
+        {
+          "text": "",
+          "latex": "m_f \\approx \\frac{150\\ \\mathrm{kg} + \\tfrac{5}{2} m_{\\mathrm{N_2O_4}}}{\\mathrm{e}^{0.9209}}",
+          "eq": 19,
+          "punctuation": ".",
+          "group": "17-19"
+        },
+        {
+          "text": "Now, we can calculate \\(m_f\\):",
+          "latex": "m_f \\approx \\frac{150\\ \\mathrm{kg} + \\tfrac{5}{2} m_{\\mathrm{N_2O_4}}}{2.5081}",
+          "eq": 20,
+          "punctuation": "."
+        },
+        {
+          "text": "Next, subtract the structural mass of 150 kg from \\(m_f\\) to find the mass of N₂O₄ needed:",
+          "latex": "m_{\\mathrm{N_2O_4}} = \\frac{m_f - 150\\ \\mathrm{kg}}{5/2}",
+          "eq": 21,
+          "punctuation": ",",
+          "group": "21-22"
+        },
+        {
+          "text": "",
+          "latex": "m_{\\mathrm{N_2O_4}} \\approx \\frac{150\\ \\mathrm{kg} + \\tfrac{5}{2} m_{\\mathrm{N_2O_4}}}{2.5081} - 150\\ \\mathrm{kg}",
+          "eq": 22,
+          "punctuation": ".",
+          "group": "21-22"
+        },
+        {
+          "text": "Now, we can solve for \\(m_{\\mathrm{N_2O_4}}\\):",
+          "latex": "(2.5081)\\, m_{\\mathrm{N_2O_4}} \\approx \\bigl(150\\ \\mathrm{kg} + \\tfrac{5}{2} m_{\\mathrm{N_2O_4}}\\bigr) - (2.5081) \\times 150\\ \\mathrm{kg}",
+          "eq": 23,
+          "punctuation": ",",
+          "group": "23-26"
+        },
+        {
+          "text": "",
+          "latex": "\\bigl(2.5081 - 2.5 \\times \\tfrac{5}{2}\\bigr)\\, m_{\\mathrm{N_2O_4}} \\approx 150\\ \\mathrm{kg} - (2.5081) \\times 150\\ \\mathrm{kg}",
+          "eq": 24,
+          "punctuation": ",",
+          "group": "23-26"
+        },
+        {
+          "text": "",
+          "latex": "(2.5081 - 6.25)\\, m_{\\mathrm{N_2O_4}} \\approx 150\\ \\mathrm{kg} - 376.215\\ \\mathrm{kg}",
+          "eq": 25,
+          "punctuation": ",",
+          "group": "23-26"
+        },
+        {
+          "text": "",
+          "latex": "(-3.7419)\\, m_{\\mathrm{N_2O_4}} \\approx -226.215\\ \\mathrm{kg}",
+          "eq": 26,
+          "punctuation": ".",
+          "group": "23-26"
+        },
+        {
+          "text": "Now, divide both sides by −3.7419 to isolate \\(m_{\\mathrm{N_2O_4}}\\):",
+          "latex": "m_{\\mathrm{N_2O_4}} \\approx \\frac{-226.215\\ \\mathrm{kg}}{-3.7419}",
+          "eq": 27,
+          "punctuation": ",",
+          "group": "27-28"
+        },
+        {
+          "text": "",
+          "latex": "m_{\\mathrm{N_2O_4}} \\approx 60.51\\ \\mathrm{kg} \\quad \\text{(approximately)}",
+          "eq": 28,
+          "punctuation": ".",
+          "group": "27-28"
+        },
+        {
+          "text": "So, we would need approximately 60.51 kg of N₂O₄ propellant, and 3/2 times that amount of UDMH, which is",
+          "latex": "m_{\\text{UDMH}} \\approx \\tfrac{3}{2} m_{\\mathrm{N_2O_4}} \\approx \\tfrac{3}{2} \\times 60.51\\ \\mathrm{kg} \\approx 90.76\\ \\mathrm{kg} \\quad \\text{(approximately)}",
+          "eq": 29,
+          "punctuation": "."
+        }
+      ],
+      "conclusion": [
+        "Therefore, we would need approximately 60.51 kg of N₂O₄ and approximately 90.76 kg of UDMH propellant to reach an altitude of 100 km from an initial altitude of 29 km using the given specifications.",
+        "The total mass of the rocket with propellants, m₀, is approximately 301.27 kg. This includes the structural mass of the rocket, 150 kg, and the mass of the UDMH, 90.76 kg, and N₂O₄, 60.51 kg, propellants."
+      ],
+      "footnotes": [
+        {
+          "n": 6,
+          "marker": "⁶",
+          "section": "11.2",
+          "text": "Section 3 quotes 316.7 seconds; the calculations use 317.6 seconds throughout. Both are reproduced."
+        }
+      ]
+    },
+    "referenceData": {
+      "number": "11.3",
+      "title": "Reference performance data for the UDMH/N₂O₄ system",
+      "intro": "The original proposal included the following bracketed block of reference data, reproduced here in full.",
+      "italic": true,
+      "paragraphs": [
+        "Unsymmetrical dimethyl hydrazine (UDMH) is a rocket propellant that is often used in combination with nitrogen tetroxide (N₂O₄) as an oxidizer. [1] According to a study by the Vikram Sarabhai Space Centre, the theoretical performance analysis of gel propellant containing Al in the UDMH–N₂O₄ system shows peak Iₛₚ (vacuum condition) of 316.7 s and 318.3 s at oxidizer/fuel (OR) ratios of 1.5 and 1.0, respectively, for 30% and 40% UDMH–Al gel propellants, under standard conditions. [2]",
+        "The Iₛₚ (vacuum condition) of the UDMH–N₂O₄ system is 316.7 s and 318.3 s at oxidiser/fuel (OR) ratios of 1.5 and 1.0, respectively, for 30% and 40% UDMH–Al gel propellants. [1] The Iₛₚ Shifting is 285 sec and the Iₛₚ Frozen is 273 sec. [2] The Oxidizer Density is 1.450 g/cc and the Fuel Density is 0.793 g/cc. [2] The Oxidizer Freezing Point is −11 °C and the Fuel Freezing Point is −57 °C. [2]"
+      ],
+      "note": "The bracketed numerals are the reference markers as they appeared in the original proposal."
+    },
+    "buoyancy": {
+      "number": "11.4",
+      "title": "Hydrogen requirement from buoyancy",
+      "readingOrder": [
+        "intro",
+        "steps",
+        "workedSequenceTitle",
+        "workedSequenceIntro",
+        "workedSequence",
+        "conclusion"
+      ],
+      "intro": "To calculate how much hydrogen gas is required to lift a payload of 301.27 kg to an altitude of 30 km using a high-altitude zero-pressure balloon, we can use the concept of buoyancy. The buoyant force on the balloon is equal to the weight of the displaced air. The calculation proceeded as follows.",
+      "steps": [
+        {
+          "text": "First, calculate the weight of the payload:",
+          "latex": "W_{\\text{payload}} = mg = 301.27\\ \\mathrm{kg} \\times 9.81\\ \\mathrm{m/s^2} = 2956.8527\\ \\mathrm{N}",
+          "eq": 30,
+          "punctuation": "."
+        },
+        {
+          "text": "Calculate the density of air at the given altitude of 30 km using the ideal gas law. Since we assumed perfect weather conditions, we can use standard atmospheric conditions at sea level to find the initial density and then adjust it for altitude. The standard values used were: standard atmospheric pressure at sea level \\(P_{\\text{sea level}}\\) = 101325 Pa; standard temperature at sea level \\(T_{\\text{sea level}}\\) = 288.15 K; universal gas constant R = 8.314 J/(mol K); molar mass of dry air \\(M_{\\text{air}}\\) = 0.029 kg/mol."
+        },
+        {
+          "text": "Using the ideal gas law,",
+          "latex": "P_{\\text{sea level}} V = n R T_{\\text{sea level}}",
+          "eq": 31,
+          "punctuation": "."
+        },
+        {
+          "text": "Calculate the number of moles at sea level:",
+          "latex": "n = \\frac{P_{\\text{sea level}} V}{R\\, T_{\\text{sea level}}}",
+          "eq": 32,
+          "punctuation": "."
+        },
+        {
+          "text": "Now, adjust the density for the given altitude of 30 km:",
+          "latex": "\\rho_{\\text{air,30km}} = \\frac{n M_{\\text{air}}}{V_{\\text{30km}}}",
+          "eq": 33,
+          "punctuation": ","
+        },
+        {
+          "text": "where V is the molar volume of a gas at standard conditions, V = 22.414 m³/mol, and \\(V_{\\text{30km}}\\) is the volume at 30 km."
+        },
+        {
+          "text": "Calculate the volume of the displaced air:",
+          "latex": "V_{\\text{displaced}} = \\frac{W_{\\text{payload}}}{\\rho_{\\text{air,30km}}}",
+          "eq": 34,
+          "punctuation": "."
+        },
+        {
+          "text": "Calculate the volume of hydrogen gas needed to provide the required buoyant force:",
+          "latex": "V_{\\text{hydrogen}} = V_{\\text{displaced}}",
+          "eq": 35,
+          "punctuation": "."
+        },
+        {
+          "text": "Now, we can calculate the mass of hydrogen required using its density at standard conditions, \\(\\rho_{\\text{hydrogen}}\\) = 0.0899 kg/m³:",
+          "latex": "m_{\\text{hydrogen}} = V_{\\text{hydrogen}}\\, \\rho_{\\text{hydrogen}}",
+          "eq": 36,
+          "punctuation": "."
+        },
+        {
+          "text": "Plugging in the values, the sequence of quantities to compute is:",
+          "latex": "\\rho_{\\text{air,sea level}} = \\frac{P_{\\text{sea level}} M_{\\text{air}}}{R\\, T_{\\text{sea level}}}",
+          "eq": 37,
+          "punctuation": ",",
+          "group": "37-41"
+        },
+        {
+          "text": "",
+          "latex": "n = \\frac{P_{\\text{sea level}} V}{R\\, T_{\\text{sea level}}}",
+          "eq": 38,
+          "punctuation": ",",
+          "group": "37-41"
+        },
+        {
+          "text": "",
+          "latex": "\\rho_{\\text{air,30km}} = \\frac{n M_{\\text{air}}}{V_{\\text{30km}}} \\quad \\text{(adjusting for altitude using the ideal gas law)}",
+          "eq": 39,
+          "punctuation": ",",
+          "group": "37-41"
+        },
+        {
+          "text": "",
+          "latex": "V_{\\text{displaced}} = \\frac{W_{\\text{payload}}}{\\rho_{\\text{air,30km}}}",
+          "eq": 40,
+          "punctuation": ",",
+          "group": "37-41"
+        },
+        {
+          "text": "",
+          "latex": "m_{\\text{hydrogen}} = V_{\\text{displaced}}\\, \\rho_{\\text{hydrogen}}",
+          "eq": 41,
+          "punctuation": ".",
+          "group": "37-41"
+        },
+        {
+          "text": "Now we can calculate the mass of hydrogen gas required to lift the payload to an altitude of 30 km under the specified conditions."
+        }
+      ],
+      "workedSequenceTitle": "Worked sequence",
+      "workedSequenceIntro": "To calculate the mass of hydrogen required to lift a 301.27 kg payload to an altitude of 30 km using a high-altitude zero-pressure balloon under perfect weather conditions, we can follow these steps.",
+      "workedSequence": [
+        {
+          "text": "",
+          "latex": "W_{\\text{payload}} = mg = 301.27\\ \\mathrm{kg} \\times 9.81\\ \\mathrm{m/s^2} = 2956.8527\\ \\mathrm{N}",
+          "eq": 42,
+          "punctuation": ".",
+          "step": "Step 1: Calculate the weight of the payload."
+        },
+        {
+          "text": "At sea level, under standard conditions: \\(P_{\\text{sea level}}\\) = 101325 Pa; \\(T_{\\text{sea level}}\\) = 288.15 K; R = 8.314 J/(mol K); \\(M_{\\text{air}}\\) = 0.029 kg/mol. Calculate the number of moles at sea level:",
+          "latex": "n = \\frac{P_{\\text{sea level}} V}{R\\, T_{\\text{sea level}}} = \\frac{101325\\ \\mathrm{Pa} \\times 22.414\\ \\mathrm{m^3/mol}}{8.314\\ \\mathrm{J/(mol\\,K)} \\times 288.15\\ \\mathrm{K}} \\approx 44.638\\ \\text{moles}",
+          "eq": 43,
+          "punctuation": ".",
+          "step": "Step 2: Calculate the density of air at 30 km using the ideal gas law."
+        },
+        {
+          "text": "Now, adjust the density for the given altitude of 30 km: \\(\\rho_{\\text{air,30km}} = nM_{\\text{air}}/V_{\\text{30km}}\\)."
+        },
+        {
+          "text": "",
+          "latex": "V_{\\text{displaced}} = \\frac{W_{\\text{payload}}}{\\rho_{\\text{air,30km}}} = \\frac{2956.8527\\ \\mathrm{N}}{\\rho_{\\text{air,30km}}}",
+          "eq": 44,
+          "punctuation": ".",
+          "step": "Step 3: Calculate the volume of the displaced air."
+        },
+        {
+          "text": "Calculate the volume of hydrogen gas needed to provide the required buoyant force, \\(V_{\\text{hydrogen}} = V_{\\text{displaced}}\\).",
+          "step": "Step 4."
+        },
+        {
+          "text": "With \\(\\rho_{\\text{hydrogen}}\\) = 0.0899 kg/m³, \\(m_{\\text{hydrogen}} = V_{\\text{hydrogen}}\\rho_{\\text{hydrogen}}\\).",
+          "step": "Step 5: Calculate the mass of hydrogen required using its density at standard conditions."
+        },
+        {
+          "text": "Now, let us calculate the density of air at 30 km and then proceed with the calculations. First, calculate the temperature at 30 km using the standard lapse rate of −6.49 °C/km:",
+          "latex": "T_{\\text{30km}} = T_{\\text{sea level}} - (6.49\\,{}^{\\circ}\\mathrm{C/km} \\times 30\\ \\mathrm{km}) = 288.15\\ \\mathrm{K} - 194.7\\ \\mathrm{K} = 93.45\\ \\mathrm{K}",
+          "eq": 45,
+          "punctuation": "."
+        },
+        {
+          "text": "Now, calculate the pressure at 30 km using the hydrostatic equation:",
+          "latex": "P_{\\text{30km}} = P_{\\text{sea level}} \\left(\\frac{T_{\\text{30km}}}{T_{\\text{sea level}}}\\right)^{g_0 M_{\\text{air}}/(RL)}",
+          "eq": 46,
+          "punctuation": ","
+        },
+        {
+          "text": "where L is the temperature lapse rate, 0.0065 K/m. Thus",
+          "latex": "P_{\\text{30km}} = 101325\\ \\mathrm{Pa} \\times \\left(\\frac{93.45\\ \\mathrm{K}}{288.15\\ \\mathrm{K}}\\right)^{\\frac{9.81\\ \\mathrm{m/s^2} \\times 0.029\\ \\mathrm{kg/mol}}{8.314\\ \\mathrm{J/(mol\\,K)} \\times 0.0065\\ \\mathrm{K/m}}} \\approx 2654.98\\ \\mathrm{Pa}",
+          "eq": 47,
+          "punctuation": "."
+        },
+        {
+          "text": "Now, calculate the density of air at 30 km:",
+          "latex": "\\rho_{\\text{air,30km}} = \\frac{P_{\\text{30km}}}{R_{\\text{air}} T_{\\text{30km}}}",
+          "eq": 48,
+          "punctuation": ","
+        },
+        {
+          "text": "where \\(R_{\\text{air}}\\) is the specific gas constant for dry air,",
+          "latex": "R_{\\text{air}} = \\frac{R}{M_{\\text{air}}} = \\frac{8.314\\ \\mathrm{J/(mol\\,K)}}{0.029\\ \\mathrm{kg/mol}} \\approx 286.90\\ \\mathrm{J/(kg\\,K)}",
+          "eq": 49,
+          "punctuation": "."
+        },
+        {
+          "text": "Therefore",
+          "latex": "\\rho_{\\text{air,30km}} = \\frac{2654.98\\ \\mathrm{Pa}}{286.90\\ \\mathrm{J/(kg\\,K)} \\times 93.45\\ \\mathrm{K}} \\approx 1.03\\ \\mathrm{kg/m^3}",
+          "eq": 50,
+          "punctuation": "."
+        },
+        {
+          "text": "Now that we have the density of air at 30 km, we can calculate the volume of displaced air:",
+          "latex": "V_{\\text{displaced}} = \\frac{W_{\\text{payload}}}{\\rho_{\\text{air,30km}}} = \\frac{2956.8527\\ \\mathrm{N}}{1.03\\ \\mathrm{kg/m^3}} \\approx 2870.04\\ \\mathrm{m^3}",
+          "eq": 51,
+          "punctuation": "."
+        },
+        {
+          "text": "Now, calculate the mass of hydrogen:",
+          "latex": "m_{\\text{hydrogen}} = V_{\\text{displaced}}\\, \\rho_{\\text{hydrogen}} = 2870.04\\ \\mathrm{m^3} \\times 0.0899\\ \\mathrm{kg/m^3} \\approx 258.42\\ \\mathrm{kg}",
+          "eq": 52,
+          "punctuation": "."
+        }
+      ],
+      "conclusion": "Therefore, approximately 258.42 kg of hydrogen gas is required to lift a 301.27 kg payload to an altitude of 30 km using a high-altitude zero-pressure balloon under the specified conditions."
+    },
+    "finalValues": {
+      "number": "11.5",
+      "title": "Final values",
+      "tableLabel": "Table 1",
+      "caption": "Final values as recorded in the original proposal. The heading in the original reads “Finaal Values”.",
+      "columns": [
+        "Quantity",
+        "Value"
+      ],
+      "rows": [
+        {
+          "quantity": "Payload mass",
+          "symbol": "mass",
+          "symbolLatex": "\\text{mass}",
+          "label": "Payload mass (mass)",
+          "value": "301.27 kg"
+        },
+        {
+          "quantity": "Gravitational acceleration",
+          "symbol": "g₀",
+          "symbolLatex": "g_0",
+          "label": "Gravitational acceleration (g₀)",
+          "value": "Approximately 9.81 m/s²"
+        },
+        {
+          "quantity": "Sea level pressure",
+          "symbol": "\\(P_{\\text{sea level}}\\)",
+          "symbolLatex": "P_{\\text{sea level}}",
+          "label": "Sea level pressure (\\(P_{\\text{sea level}}\\))",
+          "value": "101325 Pa"
+        },
+        {
+          "quantity": "Sea level temperature",
+          "symbol": "\\(T_{\\text{sea level}}\\)",
+          "symbolLatex": "T_{\\text{sea level}}",
+          "label": "Sea level temperature (\\(T_{\\text{sea level}}\\))",
+          "value": "288.15 K"
+        },
+        {
+          "quantity": "Universal gas constant",
+          "symbol": "R",
+          "symbolLatex": "R",
+          "label": "Universal gas constant (R)",
+          "value": "8.314 J/(mol K)"
+        },
+        {
+          "quantity": "Molar mass of dry air",
+          "symbol": "\\(M_{\\text{air}}\\)",
+          "symbolLatex": "M_{\\text{air}}",
+          "label": "Molar mass of dry air (\\(M_{\\text{air}}\\))",
+          "value": "0.029 kg/mol"
+        },
+        {
+          "quantity": "Temperature lapse rate",
+          "symbol": "L",
+          "symbolLatex": "L",
+          "label": "Temperature lapse rate (L)",
+          "value": "0.0065 K/m"
+        },
+        {
+          "quantity": "Density of hydrogen at standard conditions",
+          "symbol": "\\(\\rho_{\\text{hydrogen}}\\)",
+          "symbolLatex": "\\rho_{\\text{hydrogen}}",
+          "label": "Density of hydrogen at standard conditions (\\(\\rho_{\\text{hydrogen}}\\))",
+          "value": "0.0899 kg/m³"
+        },
+        {
+          "quantity": "Density of air at 30 km",
+          "symbol": "\\(\\rho_{\\text{air,30km}}\\)",
+          "symbolLatex": "\\rho_{\\text{air,30km}}",
+          "label": "Density of air at 30 km (\\(\\rho_{\\text{air,30km}}\\))",
+          "value": "Approximately 1.03 kg/m³"
+        },
+        {
+          "quantity": "Pressure at 30 km",
+          "symbol": "\\(P_{\\text{30km}}\\)",
+          "symbolLatex": "P_{\\text{30km}}",
+          "label": "Pressure at 30 km (\\(P_{\\text{30km}}\\))",
+          "value": "Approximately 2654.98 Pa"
+        },
+        {
+          "quantity": "Temperature at 30 km",
+          "symbol": "\\(T_{\\text{30km}}\\)",
+          "symbolLatex": "T_{\\text{30km}}",
+          "label": "Temperature at 30 km (\\(T_{\\text{30km}}\\))",
+          "value": "93.45 K"
+        },
+        {
+          "quantity": "Volume of displaced air",
+          "symbol": "\\(V_{\\text{displaced}}\\)",
+          "symbolLatex": "V_{\\text{displaced}}",
+          "label": "Volume of displaced air (\\(V_{\\text{displaced}}\\))",
+          "value": "Approximately 2870.04 m³"
+        },
+        {
+          "quantity": "Volume of hydrogen",
+          "symbol": "\\(V_{\\text{hydrogen}}\\)",
+          "symbolLatex": "V_{\\text{hydrogen}}",
+          "label": "Volume of hydrogen (\\(V_{\\text{hydrogen}}\\))",
+          "value": "Approximately 2870.04 m³"
+        },
+        {
+          "quantity": "Mass of hydrogen",
+          "symbol": "\\(m_{\\text{hydrogen}}\\)",
+          "symbolLatex": "m_{\\text{hydrogen}}",
+          "label": "Mass of hydrogen (\\(m_{\\text{hydrogen}}\\))",
+          "value": "Approximately 258.42 kg"
+        },
+        {
+          "quantity": "Altitude reached by balloon",
+          "symbol": "",
+          "symbolLatex": "",
+          "label": "Altitude reached by balloon",
+          "value": "29–30 km"
+        },
+        {
+          "quantity": "Change in velocity",
+          "symbol": "Δv",
+          "symbolLatex": "\\Delta v",
+          "label": "Change in velocity (Δv)",
+          "value": "Approximately 2854.72 m/s"
+        },
+        {
+          "quantity": "Mass of UDMH",
+          "symbol": "\\(m_{\\text{UDMH}}\\)",
+          "symbolLatex": "m_{\\text{UDMH}}",
+          "label": "Mass of UDMH (\\(m_{\\text{UDMH}}\\))",
+          "value": "Approximately 90.76 kg"
+        },
+        {
+          "quantity": "Mass of N₂O₄",
+          "symbol": "\\(m_{\\mathrm{N_2O_4}}\\)",
+          "symbolLatex": "m_{\\mathrm{N_2O_4}}",
+          "label": "Mass of N₂O₄ (\\(m_{\\mathrm{N_2O_4}}\\))",
+          "value": "Approximately 60.51 kg"
+        },
+        {
+          "quantity": "Total mass of propellant",
+          "symbol": "\\(m_{\\text{propellant}}\\)",
+          "symbolLatex": "m_{\\text{propellant}}",
+          "label": "Total mass of propellant (\\(m_{\\text{propellant}}\\))",
+          "value": "Approximately 151.27 kg (sum of \\(m_{\\text{UDMH}}\\) and \\(m_{\\mathrm{N_2O_4}}\\))"
+        },
+        {
+          "quantity": "Initial mass of the rocket",
+          "symbol": "m₀",
+          "symbolLatex": "m_0",
+          "label": "Initial mass of the rocket (m₀)",
+          "value": "Approximately 301.27 kg (sum of structural mass and \\(m_{\\text{propellant}}\\))"
+        },
+        {
+          "quantity": "Final mass of the rocket",
+          "symbol": "\\(m_f\\)",
+          "symbolLatex": "m_f",
+          "label": "Final mass of the rocket (\\(m_f\\))",
+          "value": "Approximately 150 kg (structural mass only)"
+        },
+        {
+          "quantity": "Structural mass of the rocket",
+          "symbol": "\\(m_{\\text{structural}}\\)",
+          "symbolLatex": "m_{\\text{structural}}",
+          "label": "Structural mass of the rocket (\\(m_{\\text{structural}}\\))",
+          "value": "150 kg"
+        },
+        {
+          "quantity": "Specific impulse",
+          "symbol": "Iₛₚ",
+          "symbolLatex": "I_{\\mathrm{sp}}",
+          "label": "Specific impulse (Iₛₚ)",
+          "value": "317.6 seconds"
+        },
+        {
+          "quantity": "Initial altitude for chemical reaction",
+          "symbol": "",
+          "symbolLatex": "",
+          "label": "Initial altitude for chemical reaction",
+          "value": "29 km"
+        },
+        {
+          "quantity": "Final altitude",
+          "symbol": "",
+          "symbolLatex": "",
+          "label": "Final altitude",
+          "value": "100 km"
+        },
+        {
+          "quantity": "Fuel to oxidizer ratio",
+          "symbol": "",
+          "symbolLatex": "",
+          "label": "Fuel to oxidizer ratio",
+          "value": "3:2 ratio, with a specific impulse of 317.6 seconds"
+        }
+      ]
+    }
+  },
+  "balloon": {
+    "number": "12",
+    "title": "Balloon Platform Selection",
+    "comparison": {
+      "number": "12.1",
+      "title": "Research balloons compared with weather balloons",
+      "intro": "Research balloons and weather balloons are both types of balloon used for various scientific and atmospheric research purposes, but they differ in terms of their design, capabilities, and primary objectives.",
+      "labels": {
+        "research": "Research balloons.",
+        "weather": "Weather balloons."
+      },
+      "rows": [
+        {
+          "aspect": "Purpose and objectives",
+          "research": "These balloons are designed for specific scientific research missions, often carrying scientific instruments, experiments, or payloads to gather data about the atmosphere, cosmic phenomena, or other scientific objectives. They are used for a wide range of research applications, including astrophysics, atmospheric studies, and Earth observation.",
+          "weather": "Weather balloons, also known as radiosondes, are primarily used for meteorological purposes. They carry instruments that measure atmospheric variables such as temperature, humidity, and pressure. The data collected from weather balloons helps meteorologists create weather forecasts and study atmospheric conditions."
+        },
+        {
+          "aspect": "Payload capacity",
+          "research": "Research balloons can be much larger and have a higher payload capacity compared with weather balloons. They are designed to carry sophisticated scientific instruments and experiments, which may include telescopes, particle detectors, or other specialised equipment.",
+          "weather": "Weather balloons are typically smaller and have a lower payload capacity. They carry lightweight meteorological instruments, making them suitable for routine weather observations."
+        },
+        {
+          "aspect": "Altitude and flight duration",
+          "research": "Research balloons are often capable of reaching higher altitudes than weather balloons. They can ascend to the stratosphere, or even to the edge of space, providing access to specific research environments. Flight durations can vary from hours to several days or weeks.",
+          "weather": "Weather balloons reach altitudes up to the stratosphere, usually reaching an average altitude of around 30 kilometres (18.6 miles). They have relatively short flight durations, typically lasting a few hours, after which they burst and return to Earth."
+        },
+        {
+          "aspect": "Instrumentation",
+          "research": "Research balloons carry a wide range of specialised scientific instruments and experiments tailored to their research objectives. These instruments may include telescopes, spectrometers, and sensors for various types of measurement.",
+          "weather": "Weather balloons carry meteorological instruments, such as radiosondes, which measure temperature, humidity, pressure, and sometimes wind speed and direction. These instruments are designed for weather forecasting and atmospheric profiling."
+        },
+        {
+          "aspect": "Cost and frequency",
+          "research": "Research balloon missions are less frequent and often involve significant costs, owing to the specialised equipment and research objectives. They are typically conducted by research institutions, space agencies, or scientific organisations.",
+          "weather": "Weather balloon launches are conducted regularly worldwide, often multiple times a day, by meteorological agencies and institutions. They are relatively cost-effective and play a crucial role in weather forecasting and monitoring."
+        }
+      ],
+      "summary": "In summary, research balloons are specialised for scientific research missions with a focus on diverse scientific objectives, while weather balloons are primarily used for routine meteorological observations and weather forecasting. Both types of balloon contribute to our understanding of the Earth’s atmosphere and the universe."
+    },
+    "medium": {
+      "number": "12.2",
+      "title": "Medium scientific balloons",
+      "intro": "Medium-sized scientific balloons are balloons designed for scientific research missions that require a moderate payload capacity and altitude. These balloons are larger and more capable than small weather balloons, but smaller than the massive high-altitude research balloons used for specialised experiments at very high altitudes.",
+      "properties": [
+        {
+          "title": "Payload capacity.",
+          "text": "Medium-sized scientific balloons typically have a payload capacity ranging from several hundred kilograms to a few metric tons. This allows them to carry a variety of scientific instruments and experiments."
+        },
+        {
+          "title": "Altitude range.",
+          "text": "These balloons can reach altitudes ranging from tens of kilometres (the stratosphere) to over 40 kilometres, depending on their design and inflation gas. They provide access to the upper atmosphere and near-space regions, making them suitable for atmospheric studies, astrophysical observations, and Earth science research."
+        },
+        {
+          "title": "Flight duration.",
+          "text": "The flight duration of medium-sized scientific balloons can vary. Some missions may last a few hours, while others can extend for several days or even weeks, depending on the research objectives and the balloon’s design."
+        },
+        {
+          "title": "Instrumentation.",
+          "text": "Medium-sized scientific balloons carry a wide range of scientific instruments and experiments. Depending on the mission, these instruments can include telescopes for astronomy, spectrometers for atmospheric studies, particle detectors, cameras, and sensors for various measurements."
+        }
+      ],
+      "applicationsTitle": "Research applications",
+      "applicationsIntro": "Medium-sized scientific balloons are used for a variety of research applications, including but not limited to the following.",
+      "applications": [
+        {
+          "title": "Atmospheric studies.",
+          "text": "Observations of the Earth’s atmosphere, including ozone measurements, climate studies, and pollution monitoring."
+        },
+        {
+          "title": "Astrophysical observations.",
+          "text": "Observations of celestial objects, including stars, planets, and cosmic phenomena, at high altitudes so as to minimise atmospheric interference."
+        },
+        {
+          "title": "Earth science.",
+          "text": "Collection of remote sensing data for Earth science research, such as land and ocean observations."
+        },
+        {
+          "title": "Planetary exploration.",
+          "text": "Testing of instruments and technologies for planetary exploration missions."
+        }
+      ],
+      "launchRecoveryCostTitle": "Launch, recovery, and cost",
+      "launchRecoveryCost": [
+        {
+          "title": "Launch and recovery.",
+          "text": "Medium-sized scientific balloons are typically launched from ground-based facilities, including balloon launch sites or research centres. They are often equipped with systems for controlled termination and recovery of scientific payloads."
+        },
+        {
+          "title": "Cost.",
+          "text": "The cost of medium-sized scientific balloon missions can vary depending on the complexity of the research objectives and the equipment involved. They are more cost-effective compared with space-based missions, making them an attractive option for scientific research."
+        }
+      ],
+      "closing": "Medium-sized scientific balloons play a valuable role in scientific research, providing a cost-effective platform for studying the Earth’s atmosphere, conducting astrophysical observations, and advancing our understanding of the universe. These balloons are often operated by research institutions, space agencies, and scientific organisations dedicated to various research disciplines."
+    },
+    "volume": {
+      "number": "12.3",
+      "title": "Volume capacity",
+      "paragraphs": [
+        "The volume capacity of medium-sized scientific balloons can vary depending on their design and specific research mission. However, a typical range for the volume capacity of medium-sized scientific balloons is approximately 100,000 to 1,000,000 litres (100,000 L to 1,000,000 L). This range allows them to carry a moderate payload while reaching altitudes in the upper atmosphere and near-space regions.⁷",
+        "We must keep in mind that the actual volume capacity may vary based on the balloon’s size and shape, and on the specific objectives of the research mission. Research institutions and organisations planning balloon missions work with balloon manufacturers to select or design balloons with the appropriate volume capacity for their scientific instruments and experiments."
+      ],
+      "footnotes": [
+        {
+          "n": 7,
+          "marker": "⁷",
+          "section": "12.3",
+          "text": "Note that 1,000,000 L is 1000 m³, which is smaller than the 2870.04 m³ requirement derived in Section 11.4. See Appendix A."
+        }
+      ]
+    }
+  },
+  "permits": {
+    "number": "13",
+    "title": "Permits Required",
+    "intro": "The following regulatory permissions were identified as necessary before any flight attempt.",
+    "items": [
+      "UDMH in high quantity.",
+      "N₂O₄ in high quantity.",
+      "H₂ in high quantity.",
+      "Sending UDMH to such a high altitude.",
+      "Sending N₂O₄ to such a high altitude.",
+      "Sending an H₂ balloon to such a high altitude.",
+      "Sending such a high mass to such a high altitude.",
+      "Letting ablative cooling material, in such a high quantity and from such a high altitude, melt and be released as exhaust.",
+      "Letting exhaust of CO₂, H₂O, N₂, and nitrous oxides — all of which are exhaust products from UDMH + N₂O₄ — be released as exhaust from such a high altitude in such a high quantity.",
+      "Evacuation permits."
+    ]
+  },
+  "bom": {
+    "number": "14",
+    "title": "Bill of Materials",
+    "intro": "The complete materials list recorded in the original proposal is reproduced below.",
+    "items": [
+      "Unsymmetrical dimethylhydrazine",
+      "Dinitrogen tetroxide",
+      "Zero-pressure research balloon",
+      "Hydrogen",
+      "301 stainless steels",
+      "Polyurethane",
+      "Titanium coating",
+      "4 GPS",
+      "High-velocity recording camera",
+      "Carbon fibre string",
+      "½-inch stainless steel pipes",
+      "Pipe saw",
+      "Teflon tape",
+      "Liquid thread sealant",
+      "Gas start (ball valve)",
+      "2 fill and drain valves",
+      "2 one-way check valves",
+      "3 vent and relief valves",
+      "Pressure regulator",
+      "2 isolation valves",
+      "Main fuel valve",
+      "Main oxidizer valve",
+      "Showerhead injector",
+      "3000 psi tanks with ½-inch connector (3 of them); measurements will be given soon",
+      "2 threaded tees",
+      "Many 45-degree elbows",
+      "2 high-pressure turbopumps",
+      "321 stainless steels",
+      "2 mini bell nozzles",
+      "1 ginormous aerospike nozzle with 35:5 (expansion ratio)",
+      "Gas manifolds",
+      "Inlet tubes",
+      "1 fuel-rich preburner",
+      "1 oxidizer-rich preburner",
+      "Multiple impinging pintle nozzles",
+      "Huge gimbal",
+      "Gimballing motors",
+      "Gimballing stands",
+      "3000-horsepower electric generator",
+      "Regeneratively cooled tubes",
+      "Composite Overwrapped Pressure Vessels (COPVs) with Kevlar protection using an SS321 alloy",
+      "Multiple gas turbine shafts",
+      "Turbines (high psi, high hp)",
+      "Gas masks",
+      "Electronically controlled Wi-Fi-enabled brass ball valves",
+      "Spray paints",
+      "Excess nitric acid",
+      "At least 15 pressure regulators",
+      "Composite carbon fibre fins",
+      "SS 316 grid fins",
+      "A landing mechanism",
+      "High-grade nylon string",
+      "Strongest available fabric paradoxical composite",
+      "S+ tier isolation valve SS316 micro filters",
+      "Al₂O₃"
+    ],
+    "note": "Order is the paper’s reading order (the list is printed in two columns on pages 20–21; each column is read top to bottom)."
+  },
+  "renders": {
+    "number": "15",
+    "title": "3D Engine Renders",
+    "intro": "The original proposal closed its technical content with a set of three-dimensional renders used to visualise the turbomachinery and nozzle geometry under consideration.",
+    "figures": [
+      {
+        "id": "9",
+        "label": "Figure 9",
+        "caption": "Turbopump for rocket engine. Four views of the turbopump assembly, including sectioned views revealing the impeller, turbine, gearing, and shaft, and an exploded view of the rotating assembly (Section 16.8).",
+        "source": "Turbopump for liquid rocket engine, GrabCAD Library. Uploader and licence terms to be confirmed"
+      },
+      {
+        "id": "10",
+        "label": "Figure 10",
+        "caption": "RS-25 engine, the project’s main inspiration, with special focus on the nozzle. Two three-quarter views showing the powerhead plumbing above the regeneratively cooled bell nozzle (Section 16.8).",
+        "source": "Space Shuttle Main Engine (SSME) / RS-25, GrabCAD Library. Uploader and licence terms to be confirmed"
+      },
+      {
+        "id": "11",
+        "label": "Figure 11",
+        "caption": "Further RS-25 engine renders, including two oblique views of the powerhead and an axial view down the nozzle showing the coolant tube bundle and manifold routing (Section 16.8).",
+        "source": "Space Shuttle Main Engine (SSME) / RS-25, GrabCAD Library, the same model as Fig. 10. Uploader and licence terms to be confirmed"
+      }
+    ]
+  },
+  "sources": {
+    "number": "16",
+    "title": "Sources",
+    "intro": "References are numbered in the list beginning on page 25 and are given in AIP style.",
+    "equationsTitle": "Equations",
+    "equationsColumns": [
+      "Equation",
+      "Result used",
+      "Source"
+    ],
+    "equations": [
+      {
+        "equation": "Tsiolkovsky rocket equation, Eq. (14) and the manipulations following it",
+        "result": "\\(\\Delta v = I_{\\mathrm{sp}}\\, g_0 \\ln(m_0/m_f)\\)",
+        "latex": "\\Delta v = I_{\\mathrm{sp}}\\, g_0 \\ln(m_0/m_f)",
+        "source": "Tsiolkovsky [1]; Sutton and Biblarz [2], Chap. 4",
+        "refs": [
+          1,
+          2
+        ]
+      },
+      {
+        "equation": "Logarithmic mass-ratio step, Eq. (13)",
+        "result": "\\(\\ln(1 + m_p/m_f)\\)",
+        "latex": "\\ln(1 + m_p/m_f)",
+        "source": "Sutton and Biblarz [2], Chap. 4",
+        "refs": [
+          2
+        ]
+      },
+      {
+        "equation": "Specific impulse and effective exhaust velocity",
+        "result": "\\(I_{\\mathrm{sp}} = c/g_0;\\ I_{\\mathrm{sp}} = 316.7\\text{\\textendash}318.3\\ \\mathrm{s}\\)",
+        "latex": "I_{\\mathrm{sp}} = c/g_0;\\ I_{\\mathrm{sp}} = 316.7\\text{\\textendash}318.3\\ \\mathrm{s}",
+        "source": "Sutton and Biblarz [2], Chap. 2; Varghese et al. [11]",
+        "refs": [
+          2,
+          11
+        ]
+      },
+      {
+        "equation": "Nozzle area (expansion) ratio",
+        "result": "\\(\\varepsilon = A_e/A_t = 36.4\\)",
+        "latex": "\\varepsilon = A_e/A_t = 36.4",
+        "source": "Sutton and Biblarz [2], Chap. 3; NASA SP-8120 [24]",
+        "refs": [
+          2,
+          24
+        ]
+      },
+      {
+        "equation": "Atmospheric temperature lapse, Eq. (45)",
+        "result": "\\(T = T_0 - Lh, \\text{ with } T_0 = 288.15\\ \\mathrm{K},\\ L = 0.0065\\ \\mathrm{K/m}\\)",
+        "latex": "T = T_0 - Lh, \\text{ with } T_0 = 288.15\\ \\mathrm{K},\\ L = 0.0065\\ \\mathrm{K/m}",
+        "source": "U.S. Standard Atmosphere, 1976 [5]; ISO 2533:1975 [6]",
+        "refs": [
+          5,
+          6
+        ]
+      },
+      {
+        "equation": "Density from the ideal gas law, Eq. (50)",
+        "result": "\\(\\rho = pM/(RT), \\text{ with } M = 0.029\\ \\mathrm{kg/mol}\\)",
+        "latex": "\\rho = pM/(RT), \\text{ with } M = 0.029\\ \\mathrm{kg/mol}",
+        "source": "White [8], Chap. 1; R = 8.314 J mol⁻¹ K⁻¹ from CODATA [7]",
+        "refs": [
+          8,
+          7
+        ]
+      },
+      {
+        "equation": "Barometric pressure relation",
+        "result": "\\(p = p_0(1 - Lh/T_0)^{g_0 M/(RL)},\\ p_0 = 101{,}325\\ \\mathrm{Pa}\\)",
+        "latex": "p = p_0(1 - Lh/T_0)^{g_0 M/(RL)},\\ p_0 = 101{,}325\\ \\mathrm{Pa}",
+        "source": "U.S. Standard Atmosphere, 1976 [5]",
+        "refs": [
+          5
+        ]
+      },
+      {
+        "equation": "Archimedes buoyancy and displaced volume, Eq. (34)",
+        "result": "\\(F_b = \\rho_{\\text{air}} V g;\\ V = m/\\rho\\)",
+        "latex": "F_b = \\rho_{\\text{air}} V g;\\ V = m/\\rho",
+        "source": "White [8], Chap. 2",
+        "refs": [
+          8
+        ]
+      },
+      {
+        "equation": "Hydrogen density",
+        "result": "\\(\\rho_{\\mathrm{H_2}} = 0.0899\\ \\mathrm{kg/m^3} \\text{ at STP}\\)",
+        "latex": "\\rho_{\\mathrm{H_2}} = 0.0899\\ \\mathrm{kg/m^3} \\text{ at STP}",
+        "source": "McCarty et al. [40]; NIST Chemistry WebBook [41]",
+        "refs": [
+          40,
+          41
+        ]
+      },
+      {
+        "equation": "Kármán line as the boundary of space",
+        "result": "100 km",
+        "latex": null,
+        "source": "von Kármán [9]; McDowell [10]",
+        "refs": [
+          9,
+          10
+        ]
+      }
+    ],
+    "propellantTitle": "Propellant and combustion data",
+    "propellant": [
+      {
+        "title": "Iₛₚ of 316.7 s and 318.3 s at oxidiser/fuel ratios of 1.5 and 1.0.",
+        "text": "Varghese et al. [11]. These figures are for gelled, aluminised UDMH at 30% and 40% Al loading.",
+        "refs": [
+          11
+        ]
+      },
+      {
+        "title": "Gellation behaviour and aluminium grade studies.",
+        "text": "Varghese et al. [12].",
+        "refs": [
+          12
+        ]
+      },
+      {
+        "title": "Neat UDMH/N₂O₄ performance.",
+        "text": "Sutton and Biblarz [2], Chap. 7.",
+        "refs": [
+          2
+        ]
+      },
+      {
+        "title": "Hypergolicity, ignition delay, and storability.",
+        "text": "Schmidt [13]; Sutton and Biblarz [2], Chap. 7.",
+        "refs": [
+          13,
+          2
+        ]
+      },
+      {
+        "title": "Oxidiser density 1.450 g/cc, fuel density 0.793 g/cc, freezing points −11 °C and −57 °C.",
+        "text": "Schmidt [13]; Huzel and Huang [4], App. B.",
+        "refs": [
+          13,
+          4
+        ]
+      },
+      {
+        "title": "Carcinogenicity of UDMH.",
+        "text": "IARC [14], which classifies 1,1-dimethylhydrazine in Group 2B; ATSDR [15]; NIOSH [17] for exposure limits.",
+        "refs": [
+          14,
+          15,
+          17
+        ]
+      },
+      {
+        "title": "Toxicity of N₂O₄.",
+        "text": "NIOSH [17]; ATSDR [16].",
+        "refs": [
+          17,
+          16
+        ]
+      },
+      {
+        "title": "Combustion instability in multi-element liquid rocket combustors.",
+        "text": "Harrje and Reardon [26]; Kasthuri et al. [27].",
+        "refs": [
+          26,
+          27
+        ]
+      }
+    ],
+    "materialsTitle": "Material properties",
+    "materialsColumns": [
+      "Material",
+      "Property",
+      "Source"
+    ],
+    "materials": [
+      {
+        "material": "AISI 301 (UNS S30100), airframe",
+        "property": "Most susceptible to cold-deformation strengthening among conventional austenitic grades; high work-hardening rate; tensile and yield strength rise with cold work",
+        "source": "ASTM A240/A240M [18]; ASM Handbook Vol. 1 [19]; Davis [20]",
+        "refs": [
+          18,
+          19,
+          20
+        ]
+      },
+      {
+        "material": "AISI 321 (UNS S32100), tanks and plumbing",
+        "property": "Type 304 with titanium added; Ti stabilises carbides against sensitisation and prevents intergranular chromium carbide precipitation during welding",
+        "source": "ASTM A240/A240M [18]; Davis [20]",
+        "refs": [
+          18,
+          20
+        ]
+      },
+      {
+        "material": "AISI 316, candidate nozzle",
+        "property": "Thermal dissipation, high-temperature strength, and erosion resistance",
+        "source": "ASTM A240/A240M [18]; ASM Handbook Vol. 1 [19]",
+        "refs": [
+          18,
+          19
+        ]
+      },
+      {
+        "material": "Graphite, chamber and nozzle",
+        "property": "High-temperature capability in combustion chambers and nozzle throats",
+        "source": "NASA SP-8124 [25]; Sutton and Biblarz [2], Chap. 8",
+        "refs": [
+          25,
+          2
+        ]
+      },
+      {
+        "material": "Titanium, valves",
+        "property": "Properties and alloy selection",
+        "source": "Boyer et al. [21]",
+        "refs": [
+          21
+        ]
+      }
+    ],
+    "engineTitle": "Engine architecture, components, and specific models",
+    "engine": [
+      {
+        "title": "Engine power cycles",
+        "text": "(gas generator, staged combustion, full-flow staged combustion). Sutton [3]; Sutton and Biblarz [2], Chap. 6; Dodd [44].",
+        "refs": [
+          3,
+          2,
+          44
+        ]
+      },
+      {
+        "title": "Pressure-fed, turbopump-fed, and electric-pump feed systems.",
+        "text": "Rachov, Tacca, and Lentini [29]; Sutton and Biblarz [2], Chap. 6.",
+        "refs": [
+          29,
+          2
+        ]
+      },
+      {
+        "title": "Injector design and mixing behaviour.",
+        "text": "NASA SP-8089 [22]; Huzel and Huang [4], Chap. 4.",
+        "refs": [
+          22,
+          4
+        ]
+      },
+      {
+        "title": "Saturn V F-1 injector plate.",
+        "text": "Young [35]; Saturn V flight manual [36].",
+        "refs": [
+          35,
+          36
+        ]
+      },
+      {
+        "title": "RS-25 / Space Shuttle Main Engine.",
+        "text": "Biggs [33]; NASA [34].",
+        "refs": [
+          33,
+          34
+        ]
+      },
+      {
+        "title": "Aerospike nozzles.",
+        "text": "Hagemann et al. [31]; Corda et al. [32]; Bravo et al. [30].",
+        "refs": [
+          31,
+          32,
+          30
+        ]
+      },
+      {
+        "title": "Cooling methods",
+        "text": "(heat sink, ablative, regenerative, film, radiative). NASA SP-8087 [23]; NASA SP-8124 [25]; Sutton and Biblarz [2], Chap. 8.",
+        "refs": [
+          23,
+          25,
+          2
+        ]
+      },
+      {
+        "title": "Turbopump configuration.",
+        "text": "Huzel and Huang [4], Chap. 6.",
+        "refs": [
+          4
+        ]
+      }
+    ],
+    "balloonTitle": "Balloon platform",
+    "balloon": [
+      {
+        "title": "Zero-pressure scientific balloons, float altitude and volume.",
+        "text": "Morris [37]; NASA Balloon Program Office [38].",
+        "refs": [
+          37,
+          38
+        ]
+      },
+      {
+        "title": "Balloon-launched sounding rockets.",
+        "text": "Ludwig [39], which records the Van Allen rockoon campaigns of 1952–1957.",
+        "refs": [
+          39
+        ]
+      },
+      {
+        "title": "Hydrogen lift and flammability.",
+        "text": "McCarty et al. [40].",
+        "refs": [
+          40
+        ]
+      }
+    ],
+    "costsTitle": "Costs",
+    "costs": [
+      {
+        "title": "Cost of launch per kilogram.",
+        "text": "Jones [42], which records approximately $54,500/kg for the Space Shuttle and $2,720/kg for Falcon 9 as of 2018; Wertz and Larson [43] for the historical range.",
+        "refs": [
+          42,
+          43
+        ]
+      }
+    ],
+    "regulatoryTitle": "Regulatory instruments",
+    "regulatory": [
+      {
+        "topic": "Airspace, balloon release, and NOTAM requirements",
+        "text": "the Aircraft Act, 1934 and the Aircraft Rules, 1937 [45].",
+        "full": "Airspace, balloon release, and NOTAM requirements: the Aircraft Act, 1934 and the Aircraft Rules, 1937 [45].",
+        "refs": [
+          45
+        ]
+      },
+      {
+        "topic": "Handling and storage of N₂O₄ and UDMH",
+        "text": "the Explosives Act, 1884 and the Static and Mobile Pressure Vessels (Unfired) Rules administered by PESO [46].",
+        "full": "Handling and storage of N₂O₄ and UDMH: the Explosives Act, 1884 and the Static and Mobile Pressure Vessels (Unfired) Rules administered by PESO [46].",
+        "refs": [
+          46
+        ]
+      },
+      {
+        "topic": "Environmental clearance and hazardous-waste handling",
+        "text": "the Environment (Protection) Act, 1986 [47].",
+        "full": "Environmental clearance and hazardous-waste handling: the Environment (Protection) Act, 1986 [47].",
+        "refs": [
+          47
+        ]
+      },
+      {
+        "topic": "Space-activity authorisation in India",
+        "text": "the Indian National Space Promotion and Authorisation Centre (IN-SPACe) [48].",
+        "full": "Space-activity authorisation in India: the Indian National Space Promotion and Authorisation Centre (IN-SPACe) [48].",
+        "refs": [
+          48
+        ]
+      }
+    ],
+    "figuresTitle": "Figures",
+    "figuresColumns": [
+      "Figure",
+      "Source"
+    ],
+    "figures": [
+      {
+        "figure": "Fig. 1a",
+        "id": "1a",
+        "source": "Author’s own. Structure per Schmidt [13]",
+        "refs": [
+          13
+        ]
+      },
+      {
+        "figure": "Fig. 1b",
+        "id": "1b",
+        "source": "Author’s own. Structure per Schmidt [13]",
+        "refs": [
+          13
+        ]
+      },
+      {
+        "figure": "Fig. 1c",
+        "id": "1c",
+        "source": "“Raptor testing,” Official SpaceX Photos, 25 September 2016. Licensed CC BY-NC 2.0",
+        "refs": []
+      },
+      {
+        "figure": "Fig. 2",
+        "id": "2",
+        "source": "Author’s own",
+        "refs": []
+      },
+      {
+        "figure": "Fig. 3a",
+        "id": "3a",
+        "source": "Author’s own",
+        "refs": []
+      },
+      {
+        "figure": "Fig. 3b",
+        "id": "3b",
+        "source": "Rachov, Tacca, and Lentini [29], “Scheme of an engine with turbopump propellant feed system”",
+        "refs": [
+          29
+        ]
+      },
+      {
+        "figure": "Fig. 4",
+        "id": "4",
+        "source": "Dodd [44]",
+        "refs": [
+          44
+        ]
+      },
+      {
+        "figure": "Fig. 5",
+        "id": "5",
+        "source": "Kasthuri [28], after Sutton and Biblarz [2]",
+        "refs": [
+          28,
+          2
+        ]
+      },
+      {
+        "figure": "Fig. 6",
+        "id": "6",
+        "source": "NASA [34]; Biggs [33]",
+        "refs": [
+          34,
+          33
+        ]
+      },
+      {
+        "figure": "Fig. 7a",
+        "id": "7a",
+        "source": "Saturn V F-1 injector plate, NASA/Rocketdyne. See Young [35]",
+        "refs": [
+          35
+        ]
+      },
+      {
+        "figure": "Fig. 7b",
+        "id": "7b",
+        "source": "Bravo et al. [30]",
+        "refs": [
+          30
+        ]
+      },
+      {
+        "figure": "Fig. 8a",
+        "id": "8a",
+        "source": "RS-25 flight nozzle. NASA [34]",
+        "refs": [
+          34
+        ]
+      },
+      {
+        "figure": "Fig. 8b",
+        "id": "8b",
+        "source": "RS-25 regeneratively cooled nozzle. NASA [34]",
+        "refs": [
+          34
+        ]
+      },
+      {
+        "figure": "Fig. 9",
+        "id": "9",
+        "source": "Turbopump for liquid rocket engine, GrabCAD Library. Uploader and licence terms to be confirmed",
+        "refs": []
+      },
+      {
+        "figure": "Fig. 10",
+        "id": "10",
+        "source": "Space Shuttle Main Engine (SSME) / RS-25, GrabCAD Library. Uploader and licence terms to be confirmed",
+        "refs": []
+      },
+      {
+        "figure": "Fig. 11",
+        "id": "11",
+        "source": "Space Shuttle Main Engine (SSME) / RS-25, GrabCAD Library, the same model as Fig. 10. Uploader and licence terms to be confirmed",
+        "refs": []
+      }
+    ],
+    "emphasis": [
+      "et al."
+    ]
+  },
+  "referencesTitle": "References",
+  "references": [
+    {
+      "n": 1,
+      "text": "K. E. Tsiolkovsky, Issledovanie Mirovykh Prostranstv Reaktivnymi Priborami [Exploration of Outer Space by Means of Rocket Devices], Nauchnoe Obozrenie 5 (1903); reprinted in Collected Works of K. E. Tsiolkovsky, Vol. II: Reactive Flying Machines (NASA TT F-237, Washington, DC, 1965).",
+      "html": "K. E. Tsiolkovsky, <i>Issledovanie Mirovykh Prostranstv Reaktivnymi Priborami</i> [Exploration of Outer Space by Means of Rocket Devices], Nauchnoe Obozrenie <b>5</b> (1903); reprinted in <i>Collected Works of K. E. Tsiolkovsky, Vol. II: Reactive Flying Machines</i> (NASA TT F-237, Washington, DC, 1965)."
+    },
+    {
+      "n": 2,
+      "text": "G. P. Sutton and O. Biblarz, Rocket Propulsion Elements, 9th ed. (Wiley, Hoboken, NJ, 2017).",
+      "html": "G. P. Sutton and O. Biblarz, <i>Rocket Propulsion Elements</i>, 9th ed. (Wiley, Hoboken, NJ, 2017)."
+    },
+    {
+      "n": 3,
+      "text": "G. P. Sutton, History of Liquid Propellant Rocket Engines (AIAA, Reston, VA, 2006).",
+      "html": "G. P. Sutton, <i>History of Liquid Propellant Rocket Engines</i> (AIAA, Reston, VA, 2006)."
+    },
+    {
+      "n": 4,
+      "text": "D. K. Huzel and D. H. Huang, Modern Engineering for Design of Liquid-Propellant Rocket Engines, Progress in Astronautics and Aeronautics Vol. 147 (AIAA, Washington, DC, 1992).",
+      "html": "D. K. Huzel and D. H. Huang, <i>Modern Engineering for Design of Liquid-Propellant Rocket Engines</i>, Progress in Astronautics and Aeronautics Vol. 147 (AIAA, Washington, DC, 1992)."
+    },
+    {
+      "n": 5,
+      "text": "U.S. Standard Atmosphere, 1976, NOAA-S/T 76-1562 (National Oceanic and Atmospheric Administration, National Aeronautics and Space Administration, and United States Air Force, Washington, DC, 1976).",
+      "html": "<i>U.S. Standard Atmosphere, 1976</i>, NOAA-S/T 76-1562 (National Oceanic and Atmospheric Administration, National Aeronautics and Space Administration, and United States Air Force, Washington, DC, 1976)."
+    },
+    {
+      "n": 6,
+      "text": "International Organization for Standardization, ISO 2533:1975, Standard Atmosphere (ISO, Geneva, 1975).",
+      "html": "International Organization for Standardization, <i>ISO 2533:1975, Standard Atmosphere</i> (ISO, Geneva, 1975)."
+    },
+    {
+      "n": 7,
+      "text": "P. J. Mohr, D. B. Newell, and B. N. Taylor, Rev. Mod. Phys. 88, 035009 (2016).",
+      "html": "P. J. Mohr, D. B. Newell, and B. N. Taylor, Rev. Mod. Phys. <b>88</b>, 035009 (2016)."
+    },
+    {
+      "n": 8,
+      "text": "F. M. White, Fluid Mechanics, 7th ed. (McGraw-Hill, New York, 2011).",
+      "html": "F. M. White, <i>Fluid Mechanics</i>, 7th ed. (McGraw-Hill, New York, 2011)."
+    },
+    {
+      "n": 9,
+      "text": "T. von Karman and L. Edson, The Wind and Beyond: Theodore von Karman, Pioneer in Aviation and Pathfinder in Space (Little, Brown, Boston, 1967).",
+      "html": "T. von Karman and L. Edson, <i>The Wind and Beyond: Theodore von Karman, Pioneer in Aviation and Pathfinder in Space</i> (Little, Brown, Boston, 1967)."
+    },
+    {
+      "n": 10,
+      "text": "J. C. McDowell, Acta Astronaut. 151, 668 (2018).",
+      "html": "J. C. McDowell, Acta Astronaut. <b>151</b>, 668 (2018)."
+    },
+    {
+      "n": 11,
+      "text": "T. L. Varghese, N. Prabhakaran, K. P. Thanki, S. Subramanian, S. S. Rao, K. N. Ninan, and V. N. Krishnamurthy, Defence Sci. J. 49, 71 (1999).",
+      "html": "T. L. Varghese, N. Prabhakaran, K. P. Thanki, S. Subramanian, S. S. Rao, K. N. Ninan, and V. N. Krishnamurthy, Defence Sci. J. <b>49</b>, 71 (1999)."
+    },
+    {
+      "n": 12,
+      "text": "T. L. Varghese, S. C. Gaindhar, J. David, J. Jose, R. M. Muthiah, S. S. Rao, K. N. Ninan, and V. N. Krishnamurthy, Defence Sci. J. 45, 25 (1995).",
+      "html": "T. L. Varghese, S. C. Gaindhar, J. David, J. Jose, R. M. Muthiah, S. S. Rao, K. N. Ninan, and V. N. Krishnamurthy, Defence Sci. J. <b>45</b>, 25 (1995)."
+    },
+    {
+      "n": 13,
+      "text": "E. W. Schmidt, Hydrazine and Its Derivatives: Preparation, Properties, Applications, 2nd ed. (Wiley, New York, 2001).",
+      "html": "E. W. Schmidt, <i>Hydrazine and Its Derivatives: Preparation, Properties, Applications</i>, 2nd ed. (Wiley, New York, 2001)."
+    },
+    {
+      "n": 14,
+      "text": "International Agency for Research on Cancer, IARC Monographs on the Evaluation of Carcinogenic Risks to Humans, Vol. 71: Re-evaluation of Some Organic Chemicals, Hydrazine and Hydrogen Peroxide (IARC, Lyon, 1999).",
+      "html": "International Agency for Research on Cancer, <i>IARC Monographs on the Evaluation of Carcinogenic Risks to Humans, Vol. 71: Re-evaluation of Some Organic Chemicals, Hydrazine and Hydrogen Peroxide</i> (IARC, Lyon, 1999)."
+    },
+    {
+      "n": 15,
+      "text": "Agency for Toxic Substances and Disease Registry, Toxicological Profile for Hydrazines (U.S. Department of Health and Human Services, Atlanta, GA, 1997).",
+      "html": "Agency for Toxic Substances and Disease Registry, <i>Toxicological Profile for Hydrazines</i> (U.S. Department of Health and Human Services, Atlanta, GA, 1997)."
+    },
+    {
+      "n": 16,
+      "text": "Agency for Toxic Substances and Disease Registry, Toxicological Profile for Nitrogen Oxides (U.S. Department of Health and Human Services, Atlanta, GA, 2002).",
+      "html": "Agency for Toxic Substances and Disease Registry, <i>Toxicological Profile for Nitrogen Oxides</i> (U.S. Department of Health and Human Services, Atlanta, GA, 2002)."
+    },
+    {
+      "n": 17,
+      "text": "National Institute for Occupational Safety and Health, NIOSH Pocket Guide to Chemical Hazards, DHHS (NIOSH) Publication No. 2005-149 (NIOSH, Cincinnati, OH, 2007).",
+      "html": "National Institute for Occupational Safety and Health, <i>NIOSH Pocket Guide to Chemical Hazards</i>, DHHS (NIOSH) Publication No. 2005-149 (NIOSH, Cincinnati, OH, 2007)."
+    },
+    {
+      "n": 18,
+      "text": "ASTM International, ASTM A240/A240M-20a, Standard Specification for Chromium and Chromium-Nickel Stainless Steel Plate, Sheet, and Strip for Pressure Vessels and for General Applications (ASTM International, West Conshohocken, PA, 2020).",
+      "html": "ASTM International, <i>ASTM A240/A240M-20a, Standard Specification for Chromium and Chromium-Nickel Stainless Steel Plate, Sheet, and Strip for Pressure Vessels and for General Applications</i> (ASTM International, West Conshohocken, PA, 2020)."
+    },
+    {
+      "n": 19,
+      "text": "ASM International, ASM Handbook, Vol. 1: Properties and Selection: Irons, Steels, and High-Performance Alloys, 10th ed. (ASM International, Materials Park, OH, 1990).",
+      "html": "ASM International, <i>ASM Handbook, Vol. 1: Properties and Selection: Irons, Steels, and High-Performance Alloys</i>, 10th ed. (ASM International, Materials Park, OH, 1990)."
+    },
+    {
+      "n": 20,
+      "text": "J. R. Davis, ed., Stainless Steels, ASM Specialty Handbook (ASM International, Materials Park, OH, 1994).",
+      "html": "J. R. Davis, ed., <i>Stainless Steels</i>, ASM Specialty Handbook (ASM International, Materials Park, OH, 1994)."
+    },
+    {
+      "n": 21,
+      "text": "R. Boyer, G. Welsch, and E. W. Collings, eds., Materials Properties Handbook: Titanium Alloys (ASM International, Materials Park, OH, 1994).",
+      "html": "R. Boyer, G. Welsch, and E. W. Collings, eds., <i>Materials Properties Handbook: Titanium Alloys</i> (ASM International, Materials Park, OH, 1994)."
+    },
+    {
+      "n": 22,
+      "text": "Liquid Rocket Engine Injectors, NASA SP-8089 (National Aeronautics and Space Administration, Cleveland, OH, 1976).",
+      "html": "<i>Liquid Rocket Engine Injectors</i>, NASA SP-8089 (National Aeronautics and Space Administration, Cleveland, OH, 1976)."
+    },
+    {
+      "n": 23,
+      "text": "Liquid Rocket Engine Fluid-Cooled Combustion Chambers, NASA SP-8087 (National Aeronautics and Space Administration, Cleveland, OH, 1972).",
+      "html": "<i>Liquid Rocket Engine Fluid-Cooled Combustion Chambers</i>, NASA SP-8087 (National Aeronautics and Space Administration, Cleveland, OH, 1972)."
+    },
+    {
+      "n": 24,
+      "text": "Liquid Rocket Engine Nozzles, NASA SP-8120 (National Aeronautics and Space Administration, Cleveland, OH, 1976).",
+      "html": "<i>Liquid Rocket Engine Nozzles</i>, NASA SP-8120 (National Aeronautics and Space Administration, Cleveland, OH, 1976)."
+    },
+    {
+      "n": 25,
+      "text": "Liquid Rocket Engine Self-Cooled Combustion Chambers, NASA SP-8124 (National Aeronautics and Space Administration, Cleveland, OH, 1977).",
+      "html": "<i>Liquid Rocket Engine Self-Cooled Combustion Chambers</i>, NASA SP-8124 (National Aeronautics and Space Administration, Cleveland, OH, 1977)."
+    },
+    {
+      "n": 26,
+      "text": "D. T. Harrje and F. H. Reardon, eds., Liquid Propellant Rocket Combustion Instability, NASA SP-194 (National Aeronautics and Space Administration, Washington, DC, 1972).",
+      "html": "D. T. Harrje and F. H. Reardon, eds., <i>Liquid Propellant Rocket Combustion Instability</i>, NASA SP-194 (National Aeronautics and Space Administration, Washington, DC, 1972)."
+    },
+    {
+      "n": 27,
+      "text": "P. Kasthuri, I. Pavithran, S. A. Pawar, R. I. Sujith, R. Gejji, and W. Anderson, Chaos 29, 103115 (2019).",
+      "html": "P. Kasthuri, I. Pavithran, S. A. Pawar, R. I. Sujith, R. Gejji, and W. Anderson, Chaos <b>29</b>, 103115 (2019)."
+    },
+    {
+      "n": 28,
+      "text": "P. Kasthuri, Dynamical Systems and Complex Systems Approach to Study Transition to Thermoacoustic Instability in a Model Multi-Element Rocket Combustor, Ph.D. thesis, Indian Institute of Technology Madras, 2022.",
+      "html": "P. Kasthuri, <i>Dynamical Systems and Complex Systems Approach to Study Transition to Thermoacoustic Instability in a Model Multi-Element Rocket Combustor</i>, Ph.D. thesis, Indian Institute of Technology Madras, 2022."
+    },
+    {
+      "n": 29,
+      "text": "P. A. Rachov, H. Tacca, and D. Lentini, J. Propul. Power 29, 1171 (2013).",
+      "html": "P. A. Rachov, H. Tacca, and D. Lentini, J. Propul. Power <b>29</b>, 1171 (2013)."
+    },
+    {
+      "n": 30,
+      "text": "L. Bravo, D. Kim, M. Ihme, R. Koneru, and A. Ghoshal, DSIAC J. 4(4), 4 (2017).",
+      "html": "L. Bravo, D. Kim, M. Ihme, R. Koneru, and A. Ghoshal, DSIAC J. <b>4</b>(4), 4 (2017)."
+    },
+    {
+      "n": 31,
+      "text": "G. Hagemann, H. Immich, T. V. Nguyen, and G. E. Dumnov, J. Propul. Power 14, 620 (1998).",
+      "html": "G. Hagemann, H. Immich, T. V. Nguyen, and G. E. Dumnov, J. Propul. Power <b>14</b>, 620 (1998)."
+    },
+    {
+      "n": 32,
+      "text": "S. Corda, B. R. Neal, T. R. Moes, T. H. Cox, R. C. Monaghan, L. S. Voelker, G. P. Corpening, R. S. Larson, and B. G. Powers, Flight Testing the Linear Aerospike SR-71 Experiment (LASRE), NASA/TM-1998-206567 (NASA Dryden Flight Research Center, Edwards, CA, 1998).",
+      "html": "S. Corda, B. R. Neal, T. R. Moes, T. H. Cox, R. C. Monaghan, L. S. Voelker, G. P. Corpening, R. S. Larson, and B. G. Powers, <i>Flight Testing the Linear Aerospike SR-71 Experiment (LASRE)</i>, NASA/TM-1998-206567 (NASA Dryden Flight Research Center, Edwards, CA, 1998)."
+    },
+    {
+      "n": 33,
+      "text": "R. E. Biggs, in History of Liquid Rocket Engine Development in the United States, 1955–1980, AAS History Series Vol. 13, edited by S. E. Doyle (Univelt, San Diego, 1992), pp. 69–122.",
+      "html": "R. E. Biggs, in <i>History of Liquid Rocket Engine Development in the United States, 1955–1980</i>, AAS History Series Vol. 13, edited by S. E. Doyle (Univelt, San Diego, 1992), pp. 69–122."
+    },
+    {
+      "n": 34,
+      "text": "National Space Transportation System Reference, Vol. 1: Systems and Facilities (National Aeronautics and Space Administration, Washington, DC, 1988).",
+      "html": "<i>National Space Transportation System Reference, Vol. 1: Systems and Facilities</i> (National Aeronautics and Space Administration, Washington, DC, 1988)."
+    },
+    {
+      "n": 35,
+      "text": "A. Young, The Saturn V F-1 Engine: Powering Apollo into History (Springer-Praxis, Chichester, 2008).",
+      "html": "A. Young, <i>The Saturn V F-1 Engine: Powering Apollo into History</i> (Springer-Praxis, Chichester, 2008)."
+    },
+    {
+      "n": 36,
+      "text": "Saturn V Flight Manual SA-503, MSFC-MAN-503 (NASA George C. Marshall Space Flight Center, Huntsville, AL, 1968).",
+      "html": "<i>Saturn V Flight Manual SA-503</i>, MSFC-MAN-503 (NASA George C. Marshall Space Flight Center, Huntsville, AL, 1968)."
+    },
+    {
+      "n": 37,
+      "text": "A. L. Morris, ed., Scientific Ballooning Handbook, NCAR Technical Note NCAR-TN/IA-99 (National Center for Atmospheric Research, Boulder, CO, 1975).",
+      "html": "A. L. Morris, ed., <i>Scientific Ballooning Handbook</i>, NCAR Technical Note NCAR-TN/IA-99 (National Center for Atmospheric Research, Boulder, CO, 1975)."
+    },
+    {
+      "n": 38,
+      "text": "NASA Scientific Balloons, NASA Facts FS-2013-06-006-GSFC (NASA Goddard Space Flight Center, Wallops Island, VA, 2013).",
+      "html": "<i>NASA Scientific Balloons</i>, NASA Facts FS-2013-06-006-GSFC (NASA Goddard Space Flight Center, Wallops Island, VA, 2013)."
+    },
+    {
+      "n": 39,
+      "text": "G. Ludwig, Opening Space Research: Dreams, Technology, and Scientific Discovery (American Geophysical Union, Washington, DC, 2011).",
+      "html": "G. Ludwig, <i>Opening Space Research: Dreams, Technology, and Scientific Discovery</i> (American Geophysical Union, Washington, DC, 2011)."
+    },
+    {
+      "n": 40,
+      "text": "R. D. McCarty, J. Hord, and H. M. Roder, Selected Properties of Hydrogen (Engineering Design Data), NBS Monograph 168 (National Bureau of Standards, Boulder, CO, 1981).",
+      "html": "R. D. McCarty, J. Hord, and H. M. Roder, <i>Selected Properties of Hydrogen (Engineering Design Data)</i>, NBS Monograph 168 (National Bureau of Standards, Boulder, CO, 1981)."
+    },
+    {
+      "n": 41,
+      "text": "P. J. Linstrom and W. G. Mallard, eds., NIST Chemistry WebBook, NIST Standard Reference Database Number 69 (National Institute of Standards and Technology, Gaithersburg, MD, 2021).",
+      "html": "P. J. Linstrom and W. G. Mallard, eds., <i>NIST Chemistry WebBook</i>, NIST Standard Reference Database Number 69 (National Institute of Standards and Technology, Gaithersburg, MD, 2021)."
+    },
+    {
+      "n": 42,
+      "text": "H. W. Jones, “The Recent Large Reduction in Space Launch Cost,” Paper No. ICES-2018-81, 48th International Conference on Environmental Systems, Albuquerque, NM, 8–12 July 2018.",
+      "html": "H. W. Jones, “The Recent Large Reduction in Space Launch Cost,” Paper No. ICES-2018-81, 48th International Conference on Environmental Systems, Albuquerque, NM, 8–12 July 2018."
+    },
+    {
+      "n": 43,
+      "text": "J. R. Wertz and W. J. Larson, eds., Space Mission Analysis and Design, 3rd ed. (Microcosm Press, Torrance, CA, 1999).",
+      "html": "J. R. Wertz and W. J. Larson, eds., <i>Space Mission Analysis and Design</i>, 3rd ed. (Microcosm Press, Torrance, CA, 1999)."
+    },
+    {
+      "n": 44,
+      "text": "T. Dodd, “Rocket Engine Cycles,” Everyday Astronaut (2019).",
+      "html": "T. Dodd, “Rocket Engine Cycles,” Everyday Astronaut (2019)."
+    },
+    {
+      "n": 45,
+      "text": "Government of India, The Aircraft Act, 1934 and The Aircraft Rules, 1937 (Ministry of Civil Aviation, New Delhi).",
+      "html": "Government of India, <i>The Aircraft Act, 1934</i> and <i>The Aircraft Rules, 1937</i> (Ministry of Civil Aviation, New Delhi)."
+    },
+    {
+      "n": 46,
+      "text": "Government of India, The Explosives Act, 1884 and The Static and Mobile Pressure Vessels (Unfired) Rules, 2016 (Petroleum and Explosives Safety Organisation, Nagpur).",
+      "html": "Government of India, <i>The Explosives Act, 1884</i> and <i>The Static and Mobile Pressure Vessels (Unfired) Rules, 2016</i> (Petroleum and Explosives Safety Organisation, Nagpur)."
+    },
+    {
+      "n": 47,
+      "text": "Government of India, The Environment (Protection) Act, 1986 (Ministry of Environment, Forest and Climate Change, New Delhi).",
+      "html": "Government of India, <i>The Environment (Protection) Act, 1986</i> (Ministry of Environment, Forest and Climate Change, New Delhi)."
+    },
+    {
+      "n": 48,
+      "text": "Indian National Space Promotion and Authorisation Centre (IN-SPACe), Norms, Guidelines and Procedures for Implementation of Indian Space Policy (Department of Space, Government of India, Ahmedabad, 2022).",
+      "html": "Indian National Space Promotion and Authorisation Centre (IN-SPACe), <i>Norms, Guidelines and Procedures for Implementation of Indian Space Policy</i> (Department of Space, Government of India, Ahmedabad, 2022)."
+    }
+  ],
+  "appendix": {
+    "number": "A",
+    "title": "Editorial and Technical Notes on the Reproduced Analysis",
+    "intro": "This appendix is not part of the original proposal. It records, for the reader’s benefit, the internal inconsistencies and analytical gaps that were preserved verbatim in the body of the paper. Nothing in the original proposal has been altered or removed on account of these notes. They are grouped by kind.",
+    "sections": [
+      {
+        "id": "A.1",
+        "title": "Reported values that differ between sections",
+        "notes": [
+          {
+            "id": "a",
+            "title": "Specific impulse.",
+            "text": "Sections 1 and 3 gave Iₛₚ = 316.7 s, while the calculations in Section 11 and Table 1 used 317.6 s. The digits appear transposed. The difference is immaterial to the conclusions (about 0.3%)."
+          },
+          {
+            "id": "b",
+            "title": "Oxidizer mass.",
+            "text": "The headline list in Section 11 gave 60.91 kg of N₂O₄, whereas the derivation and Table 1 gave 60.51 kg. The value consistent with m₀ = 301.27 kg and \\(m_{\\text{UDMH}}\\) = 90.76 kg is 60.51 kg."
+          },
+          {
+            "id": "c",
+            "title": "Nozzle expansion ratio.",
+            "text": "The design section gave 36.4 for a bell nozzle, Section 8 selected an aerospike instead, and the bill of materials specified an aerospike with an expansion ratio written 35:5. These three statements are not reconciled in the original proposal."
+          },
+          {
+            "id": "d",
+            "title": "Mixture ratio sense.",
+            "text": "The 3:2 ratio was described as oxidizer-to-fuel in Section 3, but applied as \\(m_{\\text{UDMH}}{:}m_{\\mathrm{N_2O_4}} = 3{:}2\\) (fuel-rich) in the calculation, and labelled “fuel to oxidizer” in Table 1. The cited Vikram Sarabhai Space Centre data in Section 11.3 quoted peak Iₛₚ at an oxidizer/fuel ratio of 1.5, which is the reciprocal of the ratio used in the mass calculation. As written, the vehicle carried 1.5 parts fuel to 1 part oxidizer, whereas the performance figure it was credited with corresponded to 1.5 parts oxidizer to 1 part fuel.",
+            "emphasis": [
+              "oxidizer/fuel"
+            ]
+          },
+          {
+            "id": "e",
+            "title": "Feed architecture.",
+            "text": "Section 3.2 stated that helium pressurisation removed the need for turbopumps, but the feed diagram (Figure 3a) showed low-pressure fuel-rich and oxidizer-rich turbopumps, and the bill of materials listed two high-pressure turbopumps, turbines, gas turbine shafts, two preburners, and a 3000-horsepower electric generator. The original proposal therefore described a pressure-fed system in prose and a pump-fed, staged-combustion-like system in its diagram and parts list."
+          },
+          {
+            "id": "f",
+            "title": "Propellant named in the comparison.",
+            "text": "The specific-impulse comparison in Section 3.2 attributed 316.7 s to monomethyl hydrazine (MMH), not to UDMH, which was the propellant actually selected. The same item compared an exhaust velocity in km/s for ammonium perchlorate with a specific impulse in seconds; converting 316.7 s × g₀ gives about 3.11 km/s, which is roughly 1.3 to 1.7 times the quoted 1.8–2.4 km/s rather than “nearly twice”."
+          }
+        ]
+      },
+      {
+        "id": "A.2",
+        "title": "The Δv derivation",
+        "notes": [
+          {
+            "id": "g",
+            "title": "The mass-ratio substitution collapses.",
+            "text": "In the step preceding Equation (13), the denominator \\(\\bigl(150 + \\tfrac{5}{2}m_{\\mathrm{N_2O_4}}\\bigr) - \\tfrac{5}{2}m_{\\mathrm{N_2O_4}}\\) simplifies exactly to 150, so the argument of the logarithm is m₀/150, which still depends on \\(m_{\\mathrm{N_2O_4}}\\). The original proposal instead replaced the ratio with the pure number \\(1 + \\tfrac{5}{2}\\), which removed the unknown from the equation. Consequently Δv was no longer a function of the propellant load, and the equation could not determine \\(m_{\\mathrm{N_2O_4}}\\)."
+          },
+          {
+            "id": "h",
+            "title": "Arithmetic slip in the logarithm.",
+            "text": "Equation (13) evaluated \\(\\ln\\bigl(1 + \\tfrac{5}{2}\\bigr)\\) as ln(2.5) ≈ 0.91629. In fact 1 + 2.5 = 3.5, and ln(3.5) ≈ 1.2528. The value carried forward corresponded to ln(2.5)."
+          },
+          {
+            "id": "i",
+            "title": "Inconsistency with the final mass budget.",
+            "text": "Table 1 gave m₀ = 301.27 kg and \\(m_f\\) = 150 kg, a mass ratio of 2.0085. The rocket equation then yields",
+            "latex": "\\Delta v = 317.6 \\times 9.81 \\times \\ln(2.0085) \\approx 2172\\ \\mathrm{m/s}",
+            "punctuation": ",",
+            "textAfter": "not the 2854.72 m/s of Equation (14). The propellant load and the quoted Δv are therefore mutually inconsistent by about 24%."
+          },
+          {
+            "id": "j",
+            "title": "No trajectory model links altitude to Δv.",
+            "text": "The 71 km altitude gain was stated as the objective, but no step connected it to a velocity requirement. A drag-free, constant-gravity estimate for a purely vertical coast gives \\(v = \\sqrt{2gh} \\approx 1180\\ \\mathrm{m/s}\\) for h = 71 km, which is a lower bound; gravity losses during a finite burn raise the requirement, and the true figure depends on burn time, thrust profile, and drag in the 29–50 km band. The value 2854.72 m/s was not derived from the mission requirement, and the agreement between the propellant mass and the altitude target was therefore not established by the analysis."
+          },
+          {
+            "id": "k",
+            "title": "Later algebraic steps.",
+            "text": "The step \\(m_{\\mathrm{N_2O_4}} = (m_f - 150)/(5/2)\\) treated \\(m_f\\) as though it were m₀; by the original proposal’s own definition \\(m_f\\) is the structural mass of 150 kg, which would make the numerator zero. The subsequent line introduced the coefficient \\(2.5 \\times \\tfrac{5}{2} = 6.25\\), where the preceding equation contained \\(\\tfrac{5}{2}\\) alone. The value 60.51 kg followed arithmetically from the numbers as written, but the chain of manipulations was not a valid rearrangement of the rocket equation.",
+            "emphasis": [
+              "is"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "A.3",
+        "title": "The buoyancy derivation",
+        "notes": [
+          {
+            "id": "l",
+            "title": "Temperature at 30 km.",
+            "text": "Equation (45) applied the tropospheric lapse rate of 6.49 °C/km continuously through 30 km, giving \\(T_{\\text{30km}}\\) = 93.45 K. The International Standard Atmosphere has an isothermal layer at 216.65 K between roughly 11 and 20 km and warms above it, giving about 226.5 K at 30 km. The value 93.45 K is below the boiling point of nitrogen at one atmosphere, so the atmosphere it described would be condensed."
+          },
+          {
+            "id": "m",
+            "title": "Air density at 30 km.",
+            "text": "Even accepting T = 93.45 K and P = 2654.98 Pa, Equation (50) evaluated to",
+            "latex": "\\frac{2654.98}{286.90 \\times 93.45} = 0.0990\\ \\mathrm{kg/m^3}",
+            "punctuation": ",",
+            "textAfter": "not the 1.03 kg/m³ recorded; the stated result was larger than the original proposal’s own inputs imply by a factor of about ten. The ISA value at 30 km is about 0.018 kg/m³, so the figure used was roughly 57 times too large. For comparison, sea-level density is 1.225 kg/m³: the value adopted for 30 km was close to sea level."
+          },
+          {
+            "id": "n",
+            "title": "Dimensional inconsistency.",
+            "text": "Equation (34) divided a weight in newtons by a density in kg/m³, which yields units of m⁴/s² rather than m³. The buoyancy condition should be written either as \\(V = m/\\rho_{\\text{air}}\\) or as \\(V = W/(\\rho_{\\text{air}} g)\\), and, more completely, as \\(V(\\rho_{\\text{air}} - \\rho_{\\text{gas}}) = m_{\\text{total}}\\) so that the weight of the lift gas itself is accounted for."
+          },
+          {
+            "id": "o",
+            "title": "Mixed reference states.",
+            "text": "The volume was computed at 30 km but the hydrogen mass was obtained by multiplying that volume by the sea-level hydrogen density of 0.0899 kg/m³. A zero-pressure balloon is fully inflated only at float altitude, where the hydrogen density is roughly 0.0013 kg/m³. The two errors act in opposite directions, which is why the final figure appears plausible.",
+            "emphasis": [
+              "sea-level"
+            ]
+          },
+          {
+            "id": "p",
+            "title": "Corrected order of magnitude.",
+            "text": "Taking ISA conditions at 30 km (P ≈ 1197 Pa, T ≈ 226.5 K, \\(\\rho_{\\text{air}}\\) ≈ 0.0184 kg/m³, \\(\\rho_{\\mathrm{H_2}}\\) ≈ 0.0013 kg/m³), the net lift is about 0.0171 kg/m³, so floating 301.27 kg requires roughly",
+            "latex": "V \\approx \\frac{301.27}{0.0171} \\approx 1.8 \\times 10^{4}\\ \\mathrm{m^3}",
+            "punctuation": ",",
+            "textAfter": "with a hydrogen inventory of order 23 kg rather than 258 kg. This excludes the mass of the envelope itself, which for a balloon of that volume is substantial and was not budgeted anywhere in the original proposal. The required volume is therefore about six times the 2870 m³ derived in the original proposal, and the hydrogen mass roughly an order of magnitude smaller."
+          },
+          {
+            "id": "q",
+            "title": "Internal conflict with the balloon survey.",
+            "text": "The volume capacity quoted for medium scientific balloons in Section 12, 100,000 to 1,000,000 litres, is 100 to 1000 m³ — less than the 2870 m³ the design required by its own calculation, and far less than the corrected estimate above. The figures were most likely intended as cubic metres; large scientific balloons are of order 10⁵ to 10⁶ m³."
+          }
+        ]
+      },
+      {
+        "id": "A.4",
+        "title": "The cost argument",
+        "notes": [
+          {
+            "id": "r",
+            "title": "",
+            "text": "Section 10 claimed a reduction of launch cost to $1,000–$2,500 per kilogram. On the project’s own figures — a total budget below $25,000 and a payload chamber of 5–6 kg — the implied cost is approximately $4,200–$5,000 per kilogram, which lies inside the $4,000–$10,000 band the original proposal cited as the status quo. The claimed saving was not demonstrated by the accompanying budget, and the comparison is in any case between a suborbital altitude of 100 km and orbital launch prices, which are not equivalent services: reaching 100 km vertically requires roughly an order of magnitude less energy per unit mass than reaching orbital velocity."
+          }
+        ]
+      },
+      {
+        "id": "A.5",
+        "title": "Hazard assessment",
+        "notes": [
+          {
+            "id": "s",
+            "title": "",
+            "text": "Section 3.3 recorded a single hazard. Independently of any design question, the hazard set associated with the materials named in Section 14 was considerably broader than one item: UDMH is classified as a probable human carcinogen rather than “slightly” carcinogenic; N₂O₄ is acutely toxic by inhalation and is a severe respiratory hazard at low concentrations, a property the original proposal did not mention at all; hydrogen in the quantities discussed presents a large-volume flammability and detonation hazard; and pressure vessels at 3000 psi store substantial mechanical energy independently of their contents. The original proposal’s conclusion that the mitigation strategy renders the project “entirely foolproof” (Section 3.4) was not supported by the analysis it presented. This observation is consistent with, and reinforces, the authors’ own recorded reason for closing the project."
+          }
+        ]
+      }
+    ],
+    "summary": {
+      "id": "A.6",
+      "title": "Summary",
+      "paragraphs": [
+        "The original proposal’s strengths were its architectural instinct and its scope. The central idea — releasing a small rocket from a balloon at about 30 km so as to avoid the densest atmosphere and the cost of a ground launch complex — is a real technique, historically known as the “rockoon”, flown by Van Allen and the US Navy from 1952 onward, and the choice of a storable hypergolic pair to avoid an ignition system is a coherent engineering response to the reliability problem the authors identified. The propellant survey, materials selection, permit list, and cooling options are all recognisably the right categories of question to ask.",
+        "The quantitative core, by contrast, does not close. The two principal calculations each contain an error that changes the answer by a large factor, and neither result is checked against an independent estimate; the trajectory analysis that would connect the propellant load to the 100 km target is absent rather than mistaken. Recovering the design would mean, at minimum, computing the required Δv from a trajectory model including gravity and drag losses, recomputing the atmospheric state at 30 km from standard-atmosphere tables rather than a single lapse rate, and sizing the balloon from a buoyancy balance that includes the envelope and lift-gas masses. That these gaps are visible at all is a function of how completely the authors documented the reasoning: the work records its own intermediate steps closely enough to be audited, which is more than can be said of most conceptual studies."
+      ]
+    }
+  },
+  "figures": [
+    {
+      "id": "1",
+      "label": "Figure 1",
+      "page": 4,
+      "section": "3.1",
+      "caption": "The selected propellant pair and an illustrative engine test firing, as presented in the original proposal. Structural formulae for the fuel and oxidizer are shown alongside a publicly available test-firing photograph (Section 16.8).",
+      "panels": [
+        {
+          "id": "1a",
+          "caption": "Unsymmetrical dimethylhydrazine (UDMH), the selected fuel.",
+          "source": "Author’s own. Structure per Schmidt [13]",
+          "inImageText": [
+            "CH₃",
+            "H₂N—N",
+            "CH₃"
+          ]
+        },
+        {
+          "id": "1b",
+          "caption": "Dinitrogen tetroxide (N₂O₄), the selected oxidizer.",
+          "source": "Author’s own. Structure per Schmidt [13]",
+          "inImageText": [
+            "O",
+            "O",
+            "N—N",
+            "O",
+            "O"
+          ]
+        },
+        {
+          "id": "1c",
+          "caption": "Rocket engine test firing, included in the original proposal as illustrative context.",
+          "source": "“Raptor testing,” Official SpaceX Photos, 25 September 2016. Licensed CC BY-NC 2.0"
+        }
+      ]
+    },
+    {
+      "id": "2",
+      "label": "Figure 2",
+      "page": 6,
+      "section": "4.1",
+      "caption": "The balloon-assisted launch architecture as drawn in the original proposal document. The hydrogen balloon is connected to the rocket by heavy-load strings; the assembly ascends to approximately 30 km, at which altitude the balloon bursts and the rocket ignites.",
+      "source": "Author’s own",
+      "inImageText": [
+        "Hydrogen balloon",
+        "Heavy-load string",
+        "Rocket"
+      ],
+      "description": "Hand-drawn rockoon sketch: a yellow circular hydrogen balloon at the top; two dark heavy-load strings run from a single tie point under the balloon down either side to the rocket’s fins; a grey cartoon rocket (nose cone, round porthole window, two side fins and a centre fin) hangs below."
+    },
+    {
+      "id": "3",
+      "label": "Figure 3",
+      "page": 7,
+      "section": "5",
+      "caption": "Feed-system architecture and the gas-generator cycle studied as a reference case.",
+      "panels": [
+        {
+          "id": "3a",
+          "caption": "The team’s own helium-pressurised feed-system concept, showing the 5000 psi helium vessel, the pressure regulator, the UDMH and N₂O₄ tanks at 3000 psi, and the low-pressure fuel-rich and oxidizer-rich turbopumps.",
+          "source": "Author’s own",
+          "inImageText": [
+            "5000 psi helium",
+            "Pressure regulator",
+            "Fuel tank (UDMH) at 3000 psi",
+            "Oxidizer tank (N2O4) at 3000 psi",
+            "Low pressure fuel-rich turbopump",
+            "Low pressure oxidizer-rich turbopump",
+            "Low pressure fuel-rich turbopump",
+            "Low pressure fuel-rich turbopump",
+            "1",
+            "2",
+            "3",
+            "4",
+            "5"
+          ]
+        },
+        {
+          "id": "3b",
+          "caption": "Gas-generator cycle reference schematic, showing the turbo assembly, gas generator, heat exchanger, thrust chamber, and turbine exhaust nozzle (Section 16.8).",
+          "source": "Rachov, Tacca, and Lentini [29], “Scheme of an engine with turbopump propellant feed system”"
+        }
+      ]
+    },
+    {
+      "id": "4",
+      "label": "Figure 4",
+      "page": 8,
+      "section": "5",
+      "caption": "The full-flow staged-combustion cycle, reproduced as a reference architecture. The diagram gives fuel and oxidizer tank conditions of 5 bar (73 psi) at 270 K (−3 °C), fuel-rich and oxidizer-rich preburners at 300 bar (4350 psi) and 900 K (627 °C), and main combustion at 150 bar (2175 psi) and 3500 K (3227 °C) (Section 16.8).",
+      "source": "Dodd [44]"
+    },
+    {
+      "id": "5",
+      "label": "Figure 5",
+      "page": 8,
+      "section": "5",
+      "caption": "Pressure-fed liquid rocket engine schematic, annotated with the valve architecture that the bill of materials in Section 14 reflects: check valve, vent and relief valves, gas tank, gas start valve, pressure regulator, fuel and oxidizer main valves, isolation valves, injector, combustion chamber, exhaust nozzle, and fill and drain valves (Section 16.8).",
+      "source": "Kasthuri [28], after Sutton and Biblarz [2]"
+    },
+    {
+      "id": "6",
+      "label": "Figure 6",
+      "page": 9,
+      "section": "5",
+      "caption": "Flow schematic of the Space Shuttle Main Engine (SSME / Aerojet Rocketdyne RS-25), the principal architectural inspiration for the project. The diagram identifies the low- and high-pressure fuel and oxidizer turbopumps, the fuel and oxidizer preburners and their injectors, the hot-gas manifold, the main injector, the main fuel and chamber coolant valves, the oxidizer heat exchanger, the main combustion chamber, and the nozzle, with a legend distinguishing fuel, oxidant, hot gases, and the combustion zone (Section 16.8).",
+      "source": "NASA [34]; Biggs [33]"
+    },
+    {
+      "id": "7",
+      "label": "Figure 7",
+      "page": 10,
+      "section": "7–8",
+      "caption": "Injector and nozzle reference figures from the original proposal.",
+      "panels": [
+        {
+          "id": "7a",
+          "caption": "Injector plate from a Saturn V F-1 engine, reproduced as a reference for injector-face architecture (Section 16.8).",
+          "source": "Saturn V F-1 injector plate, NASA/Rocketdyne. See Young [35]"
+        },
+        {
+          "id": "7b",
+          "caption": "Aerospike plume behaviour compared with a conventional bell nozzle at sea level, at design altitude, and at high altitude, illustrating altitude-compensating expansion (Section 16.8).",
+          "source": "Bravo et al. [30]"
+        }
+      ]
+    },
+    {
+      "id": "8",
+      "label": "Figure 8",
+      "page": 11,
+      "section": "9",
+      "caption": "Nozzle cooling hardware, reproduced from the original proposal to illustrate regenerative cooling passages.",
+      "panels": [
+        {
+          "id": "8a",
+          "caption": "Labelled flight-nozzle assembly, identifying the chamber coolant valve, diffuser, mixer, heat-shield support ring, hatbands, jacket, drain line, transfer duct, and the coolant inlet and outlet manifolds at stations 6 and 7 (Section 16.8).",
+          "source": "RS-25 flight nozzle. NASA [34]"
+        },
+        {
+          "id": "8b",
+          "caption": "Lower section of a regeneratively cooled rocket engine nozzle, showing the coolant tube bundle (Section 16.8).",
+          "source": "RS-25 regeneratively cooled nozzle. NASA [34]"
+        }
+      ]
+    },
+    {
+      "id": "9",
+      "label": "Figure 9",
+      "page": 21,
+      "section": "15",
+      "caption": "Turbopump for rocket engine. Four views of the turbopump assembly, including sectioned views revealing the impeller, turbine, gearing, and shaft, and an exploded view of the rotating assembly (Section 16.8).",
+      "source": "Turbopump for liquid rocket engine, GrabCAD Library. Uploader and licence terms to be confirmed"
+    },
+    {
+      "id": "10",
+      "label": "Figure 10",
+      "page": 22,
+      "section": "15",
+      "caption": "RS-25 engine, the project’s main inspiration, with special focus on the nozzle. Two three-quarter views showing the powerhead plumbing above the regeneratively cooled bell nozzle (Section 16.8).",
+      "source": "Space Shuttle Main Engine (SSME) / RS-25, GrabCAD Library. Uploader and licence terms to be confirmed"
+    },
+    {
+      "id": "11",
+      "label": "Figure 11",
+      "page": 22,
+      "section": "15",
+      "caption": "Further RS-25 engine renders, including two oblique views of the powerhead and an axial view down the nozzle showing the coolant tube bundle and manifold routing (Section 16.8).",
+      "source": "Space Shuttle Main Engine (SSME) / RS-25, GrabCAD Library, the same model as Fig. 10. Uploader and licence terms to be confirmed"
+    }
+  ],
+  "footnotes": [
+    {
+      "n": 1,
+      "marker": "¹",
+      "section": "3.1",
+      "text": "The 3:2 ratio is described here as oxidizer-to-fuel, but it is applied in Section 11 as \\(m_{\\text{UDMH}} : m_{\\mathrm{N_2O_4}} = 3{:}2\\), i.e. as a fuel-to-oxidizer ratio. Both statements are reproduced as they appeared in the original proposal; see Appendix A."
+    },
+    {
+      "n": 2,
+      "marker": "²",
+      "section": "3.2",
+      "text": "Reproduced as written. Note that the comparison places an exhaust velocity in km/s alongside a specific impulse in seconds, and that the propellant named in this line is monomethyl hydrazine (MMH) rather than UDMH. See Appendix A."
+    },
+    {
+      "n": 3,
+      "marker": "³",
+      "section": "4.2",
+      "text": "Section 8 states the intention to use an aerospike nozzle, and the bill of materials in Section 14 lists an aerospike with an expansion ratio given as 35:5. All three figures are reproduced as they appeared in the original proposal; see Appendix A."
+    },
+    {
+      "n": 4,
+      "marker": "⁴",
+      "section": "10",
+      "text": "The consistency of this figure with the project’s own budget and payload mass is examined in Appendix A."
+    },
+    {
+      "n": 5,
+      "marker": "⁵",
+      "section": "11.1",
+      "text": "This headline figure reads 60.91 kg, whereas the derivation in Section 11.2 and the summary in Section 11.5 both give 60.51 kg. Both values are reproduced as they appear; see Appendix A."
+    },
+    {
+      "n": 6,
+      "marker": "⁶",
+      "section": "11.2",
+      "text": "Section 3 quotes 316.7 seconds; the calculations use 317.6 seconds throughout. Both are reproduced."
+    },
+    {
+      "n": 7,
+      "marker": "⁷",
+      "section": "12.3",
+      "text": "Note that 1,000,000 L is 1000 m³, which is smaller than the 2870.04 m³ requirement derived in Section 11.4. See Appendix A."
+    }
+  ],
+  "equations": [
+    {
+      "eq": 1,
+      "latex": "\\Delta v = I_{\\mathrm{sp}}\\, g_0 \\ln\\left(\\frac{m_0}{m_f}\\right)",
+      "punctuation": ",",
+      "group": null,
+      "section": "11.2"
+    },
+    {
+      "eq": 2,
+      "latex": "\\Delta v = I_{\\mathrm{sp}}\\, g_0 \\ln\\left(\\frac{m_0}{m_f}\\right)",
+      "punctuation": ".",
+      "group": null,
+      "section": "11.2"
+    },
+    {
+      "eq": 3,
+      "latex": "m_f = m_0 - m_{\\text{propellant}}",
+      "punctuation": ".",
+      "group": null,
+      "section": "11.2"
+    },
+    {
+      "eq": 4,
+      "latex": "\\Delta v = I_{\\mathrm{sp}}\\, g_0 \\ln\\left(\\frac{m_0}{m_0 - m_{\\text{propellant}}}\\right)",
+      "punctuation": ".",
+      "group": null,
+      "section": "11.2"
+    },
+    {
+      "eq": 5,
+      "latex": "m_{\\text{propellant}} = m_{\\text{UDMH}} + m_{\\mathrm{N_2O_4}}",
+      "punctuation": ".",
+      "group": null,
+      "section": "11.2"
+    },
+    {
+      "eq": 6,
+      "latex": "m_{\\text{UDMH}} = \\tfrac{3}{2}\\, m_{\\mathrm{N_2O_4}}",
+      "punctuation": ".",
+      "group": null,
+      "section": "11.2"
+    },
+    {
+      "eq": 7,
+      "latex": "m_{\\text{propellant}} = \\tfrac{3}{2} m_{\\mathrm{N_2O_4}} + m_{\\mathrm{N_2O_4}} = \\tfrac{5}{2}\\, m_{\\mathrm{N_2O_4}}",
+      "punctuation": ".",
+      "group": null,
+      "section": "11.2"
+    },
+    {
+      "eq": 8,
+      "latex": "\\Delta v = I_{\\mathrm{sp}}\\, g_0 \\ln\\left(\\frac{m_0}{m_0 - \\tfrac{5}{2} m_{\\mathrm{N_2O_4}}}\\right)",
+      "punctuation": ".",
+      "group": null,
+      "section": "11.2"
+    },
+    {
+      "eq": 9,
+      "latex": "m_0 = m_{\\text{structural}} + m_{\\text{propellant}}",
+      "punctuation": ".",
+      "group": null,
+      "section": "11.2"
+    },
+    {
+      "eq": 10,
+      "latex": "m_0 = 150\\ \\mathrm{kg} + \\tfrac{5}{2} m_{\\mathrm{N_2O_4}}",
+      "punctuation": ".",
+      "group": null,
+      "section": "11.2"
+    },
+    {
+      "eq": 11,
+      "latex": "\\Delta v = 317.6 \\times 9.81 \\times \\ln\\left(\\frac{150\\ \\mathrm{kg} + \\tfrac{5}{2} m_{\\mathrm{N_2O_4}}}{\\left(150\\ \\mathrm{kg} + \\tfrac{5}{2} m_{\\mathrm{N_2O_4}}\\right) - \\tfrac{5}{2} m_{\\mathrm{N_2O_4}}}\\right)",
+      "punctuation": ",",
+      "group": "11-12",
+      "section": "11.2"
+    },
+    {
+      "eq": 12,
+      "latex": "\\Delta v = 3115.416 \\times \\ln\\bigl(1 + \\tfrac{5}{2}\\bigr)",
+      "punctuation": ".",
+      "group": "11-12",
+      "section": "11.2"
+    },
+    {
+      "eq": 13,
+      "latex": "\\ln\\bigl(1 + \\tfrac{5}{2}\\bigr) \\approx \\ln(2.5) \\approx 0.91629",
+      "punctuation": ".",
+      "group": null,
+      "section": "11.2"
+    },
+    {
+      "eq": 14,
+      "latex": "\\Delta v \\approx 3115.416 \\times 0.91629, \\qquad \\Delta v \\approx 2854.72\\ \\mathrm{m/s}",
+      "punctuation": ".",
+      "group": null,
+      "section": "11.2"
+    },
+    {
+      "eq": 15,
+      "latex": "\\Delta v = I_{\\mathrm{sp}}\\, g_0 \\ln\\left(\\frac{m_0}{m_f}\\right)",
+      "punctuation": ",",
+      "group": "15-16",
+      "section": "11.2"
+    },
+    {
+      "eq": 16,
+      "latex": "\\Delta v = 317.6 \\times 9.81 \\times \\ln\\left(\\frac{m_0}{m_f}\\right)",
+      "punctuation": ".",
+      "group": "15-16",
+      "section": "11.2"
+    },
+    {
+      "eq": 17,
+      "latex": "m_f = \\frac{m_0}{\\mathrm{e}^{\\Delta v/(I_{\\mathrm{sp}} g_0)}}",
+      "punctuation": ",",
+      "group": "17-19",
+      "section": "11.2"
+    },
+    {
+      "eq": 18,
+      "latex": "m_f = \\frac{150\\ \\mathrm{kg} + \\tfrac{5}{2} m_{\\mathrm{N_2O_4}}}{\\mathrm{e}^{2854.72/(317.6 \\times 9.81)}}",
+      "punctuation": ",",
+      "group": "17-19",
+      "section": "11.2"
+    },
+    {
+      "eq": 19,
+      "latex": "m_f \\approx \\frac{150\\ \\mathrm{kg} + \\tfrac{5}{2} m_{\\mathrm{N_2O_4}}}{\\mathrm{e}^{0.9209}}",
+      "punctuation": ".",
+      "group": "17-19",
+      "section": "11.2"
+    },
+    {
+      "eq": 20,
+      "latex": "m_f \\approx \\frac{150\\ \\mathrm{kg} + \\tfrac{5}{2} m_{\\mathrm{N_2O_4}}}{2.5081}",
+      "punctuation": ".",
+      "group": null,
+      "section": "11.2"
+    },
+    {
+      "eq": 21,
+      "latex": "m_{\\mathrm{N_2O_4}} = \\frac{m_f - 150\\ \\mathrm{kg}}{5/2}",
+      "punctuation": ",",
+      "group": "21-22",
+      "section": "11.2"
+    },
+    {
+      "eq": 22,
+      "latex": "m_{\\mathrm{N_2O_4}} \\approx \\frac{150\\ \\mathrm{kg} + \\tfrac{5}{2} m_{\\mathrm{N_2O_4}}}{2.5081} - 150\\ \\mathrm{kg}",
+      "punctuation": ".",
+      "group": "21-22",
+      "section": "11.2"
+    },
+    {
+      "eq": 23,
+      "latex": "(2.5081)\\, m_{\\mathrm{N_2O_4}} \\approx \\bigl(150\\ \\mathrm{kg} + \\tfrac{5}{2} m_{\\mathrm{N_2O_4}}\\bigr) - (2.5081) \\times 150\\ \\mathrm{kg}",
+      "punctuation": ",",
+      "group": "23-26",
+      "section": "11.2"
+    },
+    {
+      "eq": 24,
+      "latex": "\\bigl(2.5081 - 2.5 \\times \\tfrac{5}{2}\\bigr)\\, m_{\\mathrm{N_2O_4}} \\approx 150\\ \\mathrm{kg} - (2.5081) \\times 150\\ \\mathrm{kg}",
+      "punctuation": ",",
+      "group": "23-26",
+      "section": "11.2"
+    },
+    {
+      "eq": 25,
+      "latex": "(2.5081 - 6.25)\\, m_{\\mathrm{N_2O_4}} \\approx 150\\ \\mathrm{kg} - 376.215\\ \\mathrm{kg}",
+      "punctuation": ",",
+      "group": "23-26",
+      "section": "11.2"
+    },
+    {
+      "eq": 26,
+      "latex": "(-3.7419)\\, m_{\\mathrm{N_2O_4}} \\approx -226.215\\ \\mathrm{kg}",
+      "punctuation": ".",
+      "group": "23-26",
+      "section": "11.2"
+    },
+    {
+      "eq": 27,
+      "latex": "m_{\\mathrm{N_2O_4}} \\approx \\frac{-226.215\\ \\mathrm{kg}}{-3.7419}",
+      "punctuation": ",",
+      "group": "27-28",
+      "section": "11.2"
+    },
+    {
+      "eq": 28,
+      "latex": "m_{\\mathrm{N_2O_4}} \\approx 60.51\\ \\mathrm{kg} \\quad \\text{(approximately)}",
+      "punctuation": ".",
+      "group": "27-28",
+      "section": "11.2"
+    },
+    {
+      "eq": 29,
+      "latex": "m_{\\text{UDMH}} \\approx \\tfrac{3}{2} m_{\\mathrm{N_2O_4}} \\approx \\tfrac{3}{2} \\times 60.51\\ \\mathrm{kg} \\approx 90.76\\ \\mathrm{kg} \\quad \\text{(approximately)}",
+      "punctuation": ".",
+      "group": null,
+      "section": "11.2"
+    },
+    {
+      "eq": 30,
+      "latex": "W_{\\text{payload}} = mg = 301.27\\ \\mathrm{kg} \\times 9.81\\ \\mathrm{m/s^2} = 2956.8527\\ \\mathrm{N}",
+      "punctuation": ".",
+      "group": null,
+      "section": "11.4"
+    },
+    {
+      "eq": 31,
+      "latex": "P_{\\text{sea level}} V = n R T_{\\text{sea level}}",
+      "punctuation": ".",
+      "group": null,
+      "section": "11.4"
+    },
+    {
+      "eq": 32,
+      "latex": "n = \\frac{P_{\\text{sea level}} V}{R\\, T_{\\text{sea level}}}",
+      "punctuation": ".",
+      "group": null,
+      "section": "11.4"
+    },
+    {
+      "eq": 33,
+      "latex": "\\rho_{\\text{air,30km}} = \\frac{n M_{\\text{air}}}{V_{\\text{30km}}}",
+      "punctuation": ",",
+      "group": null,
+      "section": "11.4"
+    },
+    {
+      "eq": 34,
+      "latex": "V_{\\text{displaced}} = \\frac{W_{\\text{payload}}}{\\rho_{\\text{air,30km}}}",
+      "punctuation": ".",
+      "group": null,
+      "section": "11.4"
+    },
+    {
+      "eq": 35,
+      "latex": "V_{\\text{hydrogen}} = V_{\\text{displaced}}",
+      "punctuation": ".",
+      "group": null,
+      "section": "11.4"
+    },
+    {
+      "eq": 36,
+      "latex": "m_{\\text{hydrogen}} = V_{\\text{hydrogen}}\\, \\rho_{\\text{hydrogen}}",
+      "punctuation": ".",
+      "group": null,
+      "section": "11.4"
+    },
+    {
+      "eq": 37,
+      "latex": "\\rho_{\\text{air,sea level}} = \\frac{P_{\\text{sea level}} M_{\\text{air}}}{R\\, T_{\\text{sea level}}}",
+      "punctuation": ",",
+      "group": "37-41",
+      "section": "11.4"
+    },
+    {
+      "eq": 38,
+      "latex": "n = \\frac{P_{\\text{sea level}} V}{R\\, T_{\\text{sea level}}}",
+      "punctuation": ",",
+      "group": "37-41",
+      "section": "11.4"
+    },
+    {
+      "eq": 39,
+      "latex": "\\rho_{\\text{air,30km}} = \\frac{n M_{\\text{air}}}{V_{\\text{30km}}} \\quad \\text{(adjusting for altitude using the ideal gas law)}",
+      "punctuation": ",",
+      "group": "37-41",
+      "section": "11.4"
+    },
+    {
+      "eq": 40,
+      "latex": "V_{\\text{displaced}} = \\frac{W_{\\text{payload}}}{\\rho_{\\text{air,30km}}}",
+      "punctuation": ",",
+      "group": "37-41",
+      "section": "11.4"
+    },
+    {
+      "eq": 41,
+      "latex": "m_{\\text{hydrogen}} = V_{\\text{displaced}}\\, \\rho_{\\text{hydrogen}}",
+      "punctuation": ".",
+      "group": "37-41",
+      "section": "11.4"
+    },
+    {
+      "eq": 42,
+      "latex": "W_{\\text{payload}} = mg = 301.27\\ \\mathrm{kg} \\times 9.81\\ \\mathrm{m/s^2} = 2956.8527\\ \\mathrm{N}",
+      "punctuation": ".",
+      "group": null,
+      "section": "11.4"
+    },
+    {
+      "eq": 43,
+      "latex": "n = \\frac{P_{\\text{sea level}} V}{R\\, T_{\\text{sea level}}} = \\frac{101325\\ \\mathrm{Pa} \\times 22.414\\ \\mathrm{m^3/mol}}{8.314\\ \\mathrm{J/(mol\\,K)} \\times 288.15\\ \\mathrm{K}} \\approx 44.638\\ \\text{moles}",
+      "punctuation": ".",
+      "group": null,
+      "section": "11.4"
+    },
+    {
+      "eq": 44,
+      "latex": "V_{\\text{displaced}} = \\frac{W_{\\text{payload}}}{\\rho_{\\text{air,30km}}} = \\frac{2956.8527\\ \\mathrm{N}}{\\rho_{\\text{air,30km}}}",
+      "punctuation": ".",
+      "group": null,
+      "section": "11.4"
+    },
+    {
+      "eq": 45,
+      "latex": "T_{\\text{30km}} = T_{\\text{sea level}} - (6.49\\,{}^{\\circ}\\mathrm{C/km} \\times 30\\ \\mathrm{km}) = 288.15\\ \\mathrm{K} - 194.7\\ \\mathrm{K} = 93.45\\ \\mathrm{K}",
+      "punctuation": ".",
+      "group": null,
+      "section": "11.4"
+    },
+    {
+      "eq": 46,
+      "latex": "P_{\\text{30km}} = P_{\\text{sea level}} \\left(\\frac{T_{\\text{30km}}}{T_{\\text{sea level}}}\\right)^{g_0 M_{\\text{air}}/(RL)}",
+      "punctuation": ",",
+      "group": null,
+      "section": "11.4"
+    },
+    {
+      "eq": 47,
+      "latex": "P_{\\text{30km}} = 101325\\ \\mathrm{Pa} \\times \\left(\\frac{93.45\\ \\mathrm{K}}{288.15\\ \\mathrm{K}}\\right)^{\\frac{9.81\\ \\mathrm{m/s^2} \\times 0.029\\ \\mathrm{kg/mol}}{8.314\\ \\mathrm{J/(mol\\,K)} \\times 0.0065\\ \\mathrm{K/m}}} \\approx 2654.98\\ \\mathrm{Pa}",
+      "punctuation": ".",
+      "group": null,
+      "section": "11.4"
+    },
+    {
+      "eq": 48,
+      "latex": "\\rho_{\\text{air,30km}} = \\frac{P_{\\text{30km}}}{R_{\\text{air}} T_{\\text{30km}}}",
+      "punctuation": ",",
+      "group": null,
+      "section": "11.4"
+    },
+    {
+      "eq": 49,
+      "latex": "R_{\\text{air}} = \\frac{R}{M_{\\text{air}}} = \\frac{8.314\\ \\mathrm{J/(mol\\,K)}}{0.029\\ \\mathrm{kg/mol}} \\approx 286.90\\ \\mathrm{J/(kg\\,K)}",
+      "punctuation": ".",
+      "group": null,
+      "section": "11.4"
+    },
+    {
+      "eq": 50,
+      "latex": "\\rho_{\\text{air,30km}} = \\frac{2654.98\\ \\mathrm{Pa}}{286.90\\ \\mathrm{J/(kg\\,K)} \\times 93.45\\ \\mathrm{K}} \\approx 1.03\\ \\mathrm{kg/m^3}",
+      "punctuation": ".",
+      "group": null,
+      "section": "11.4"
+    },
+    {
+      "eq": 51,
+      "latex": "V_{\\text{displaced}} = \\frac{W_{\\text{payload}}}{\\rho_{\\text{air,30km}}} = \\frac{2956.8527\\ \\mathrm{N}}{1.03\\ \\mathrm{kg/m^3}} \\approx 2870.04\\ \\mathrm{m^3}",
+      "punctuation": ".",
+      "group": null,
+      "section": "11.4"
+    },
+    {
+      "eq": 52,
+      "latex": "m_{\\text{hydrogen}} = V_{\\text{displaced}}\\, \\rho_{\\text{hydrogen}} = 2870.04\\ \\mathrm{m^3} \\times 0.0899\\ \\mathrm{kg/m^3} \\approx 258.42\\ \\mathrm{kg}",
+      "punctuation": ".",
+      "group": null,
+      "section": "11.4"
+    }
+  ]
+}

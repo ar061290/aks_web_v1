@@ -1,0 +1,6 @@
+node_modules/
+dist/
+models-src/
+*.log
+.DS_Store
+.vite/

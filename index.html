@@ -1,0 +1,343 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#000000" />
+  <title>Project AKS | Interactive Rockoon Story</title>
+  <meta name="description" content="An interactive 3D story of Project AKS: a student-designed, balloon-launched reusable hypergolic sounding rocket aimed at 100 km, by three students of CHIREC International School, Hyderabad." />
+  <meta property="og:title" content="Project AKS | Interactive Rockoon Story" />
+  <meta property="og:description" content="Balloon to 30 km. Hypergolic ignition. Target: the Kármán line. The rocket that never left paper, flown in 3D." />
+  <meta property="og:type" content="website" />
+  <meta property="og:image" content="https://ar061290.github.io/aks_web_v1/og.jpg" />
+  <meta property="og:url" content="https://ar061290.github.io/aks_web_v1/" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <link rel="icon" href="./favicon.svg" type="image/svg+xml" />
+  <link rel="preload" href="./fonts/Orbitron-wght.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="preload" href="./fonts/D-DINCondensed.woff2" as="font" type="font/woff2" crossorigin />
+</head>
+<body class="is-loading">
+  <!-- ====================================================== 3D stage -->
+  <canvas id="stage" aria-hidden="true"></canvas>
+  <div class="vignette" aria-hidden="true"></div>
+  <div id="hotspots" class="hotspots" aria-live="polite"></div>
+
+  <!-- ====================================================== loader -->
+  <div id="loader" class="loader" role="status" aria-label="Loading">
+    <div class="loader__glow" aria-hidden="true"></div>
+    <div class="loader__mark"><span class="k">PROJECT:</span><span class="b">AKS</span></div>
+    <div class="loader__pct"><span id="loader-pct">0</span>%</div>
+    <div class="loader__bar"><i id="loader-bar"></i></div>
+    <div class="loader__note">Loading the stratosphere&hellip;</div>
+  </div>
+
+  <!-- ====================================================== top bar -->
+  <header class="topbar">
+    <div class="topbar__chapter" id="chapter-label" aria-live="polite">00 / LAUNCH</div>
+    <a class="topbar__mark" href="#hero" aria-label="Project AKS, back to top"><span>PROJECT</span><i>:</i><b>AKS</b></a>
+    <nav class="topbar__icons">
+      <a class="icon-btn" href="./paper/project-aks-original-proposal.pdf" target="_blank" rel="noopener" aria-label="Read the original proposal (PDF)" title="Read the original proposal (PDF)">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 2h8l5 5v15H6z" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M14 2v5h5" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M9 13h7M9 16.5h7M9 9.5h3" stroke="currentColor" stroke-width="1.6"/></svg>
+      </a>
+      <button class="icon-btn" id="audio-toggle" aria-pressed="false" aria-label="Toggle audio" title="Toggle audio">
+        <svg class="hp-off" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 14v-2a8 8 0 0 1 16 0v2" fill="none" stroke="currentColor" stroke-width="1.6"/><rect x="3" y="13" width="4" height="7" rx="1.2" fill="none" stroke="currentColor" stroke-width="1.6"/><rect x="17" y="13" width="4" height="7" rx="1.2" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M3 3l18 18" stroke="currentColor" stroke-width="1.6"/></svg>
+        <svg class="hp-on" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 14v-2a8 8 0 0 1 16 0v2" fill="none" stroke="currentColor" stroke-width="1.6"/><rect x="3" y="13" width="4" height="7" rx="1.2" fill="currentColor"/><rect x="17" y="13" width="4" height="7" rx="1.2" fill="currentColor"/></svg>
+      </button>
+    </nav>
+  </header>
+
+  <!-- chapter rail -->
+  <nav class="rail" id="rail" aria-label="Chapters"></nav>
+
+  <!-- flight HUD (fixed, shown during the flight profile) -->
+  <div class="hud" id="hud" aria-hidden="true">
+    <div class="hud__left">
+      <svg class="hud__icon" id="hud-icon" viewBox="0 0 95 95" aria-hidden="true">
+        <circle cx="47.5" cy="47.5" r="45" fill="none" stroke="rgba(243,251,251,.25)" stroke-width="1.5"/>
+        <g class="i-balloon"><circle cx="47.5" cy="30" r="15" fill="#F3FBFB"/></g>
+        <g class="i-string"><path d="M47.5 45 L38 57 M47.5 45 L57 57" stroke="#F3FBFB" stroke-width="1.6" fill="none"/></g>
+        <g class="i-rocket"><path d="M47.5 50 l5 7 v17 h-10 v-17 z" fill="#F3FBFB"/></g>
+        <g class="i-flame"><path d="M44 76 q3.5 12 7 0 z" fill="#ffb15a"/></g>
+      </svg>
+      <dl class="hud__telemetry">
+        <div><dt>ALTITUDE</dt><dd id="hud-alt">0.0 KM</dd></div>
+        <div><dt>PRESSURE</dt><dd id="hud-p">101.3 KPA</dd></div>
+      </dl>
+    </div>
+    <div class="hud__right">
+      <div class="hud__phase" id="hud-phase">PHASE 1</div>
+      <div class="hud__title" id="hud-title">BALLOON ASCENT</div>
+      <div class="hud__desc" id="hud-desc">HYDROGEN BALLOON CARRIES THE ROCKET TO ALTITUDE</div>
+    </div>
+    <svg class="hud__arc" viewBox="0 0 663 120" preserveAspectRatio="none" aria-hidden="true">
+      <ellipse cx="331.5" cy="119.5" rx="330" ry="109" fill="none" stroke="rgba(243,251,251,.2)" stroke-width="2.5"/>
+      <ellipse id="hud-arc" cx="331.5" cy="119.5" rx="330" ry="109" fill="none" stroke="#F3FBFB" stroke-width="2.5" pathLength="1000" stroke-dasharray="0 1000" transform="rotate(180 331.5 119.5)"/>
+    </svg>
+  </div>
+
+  <!-- ====================================================== story -->
+  <main id="main">
+    <!-- 00 HERO -->
+    <section class="sec sec--hero" id="hero" data-shot="hero" data-chapter="LAUNCH">
+      <div class="hero__copy">
+        <div class="hero__kicker" data-reveal>PROJECT:</div>
+        <h1 class="hero__title" data-split>AKS</h1>
+        <div class="hero__sub" data-reveal>INTERACTIVE STORY OF A STUDENT ROCKOON</div>
+        <p class="hero__body" data-reveal>Three students at CHIREC International School, Hyderabad, set out to fly the highest student-led rocket in the world. Not from a launch pad, but from 30&nbsp;km up, hanging beneath a hydrogen balloon.</p>
+        <p class="hero__body hero__body--dim" data-reveal>A 2022&ndash;2023 proposal that never left paper. This is the flight it was designed to make.</p>
+        <button class="btn btn--ghost" id="audio-init" data-reveal>INITIATE AUDIO</button>
+      </div>
+      <div class="hero__scroll" data-reveal>Scroll to Engage</div>
+      <div class="hero__warp" data-reveal><span class="hw-mouse">MOVE TO STEER &middot; HOLD TO WARP</span><span class="hw-touch">HOLD TO WARP</span></div>
+      <div class="counter counter--hero" data-reveal>
+        <div class="counter__num">100</div>
+        <div class="counter__lbl">KM TARGET APOGEE</div>
+      </div>
+    </section>
+
+    <!-- 01 ROCKOON -->
+    <section class="sec sec--panel-right" id="rockoon" data-shot="rockoon" data-chapter="ROCKOON" data-touch="rockoon">
+      <div class="touchpad touchpad--left" data-model="rockoon" aria-hidden="true"></div>
+      <div class="panel">
+        <h2 class="title"><span class="corner tl"></span>TO SPACE<br />BY BALLOON<span class="corner tr"></span></h2>
+        <div class="subtitle">BALLOON-ASSISTED ASCENT</div>
+        <p class="body">Strap the rocket beneath a high-altitude hydrogen balloon and let buoyancy carry it the first 30&nbsp;km, above the densest air, then ignite. The proposal estimated the balloon would cut the cost of the project by nearly 25&ndash;30%.</p>
+        <dl class="specs">
+          <div><dt>LIFT GAS</dt><dd>Hydrogen</dd></div>
+          <div><dt>HYDROGEN</dt><dd>258.42 kg</dd></div>
+          <div><dt>LIFTED MASS</dt><dd>301.27 kg</dd></div>
+          <div><dt>IGNITION</dt><dd>29 km <span>/ barometric</span></dd></div>
+          <div><dt>TARGET</dt><dd>100 km <span>/ K&aacute;rm&aacute;n line</span></dd></div>
+        </dl>
+        <div class="actions">
+          <button class="btn" data-explore="rockoon">EXPLORE IN 3D <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m16 9.4-8.6 8.6-1.4-1.4L14.6 8H7V6h11v11h-2z" fill="currentColor"/></svg></button>
+          <button class="btn btn--ghost" data-lightbox="fig2">ORIGINAL SKETCH</button>
+        </div>
+        <div class="hint"><span class="hint__ico"></span>Drag the rockoon to rotate it. Tap the markers.</div>
+      </div>
+    </section>
+
+    <!-- 02 QUOTE -->
+    <section class="sec sec--quote" id="quote" data-shot="quote" data-chapter="ROCKOON">
+      <blockquote class="quote">
+        <p data-split-words>&lsquo;The sky is no limit when there is a vast and endless void above the atmosphere.&rsquo;</p>
+        <cite data-reveal>&mdash;PROJECT AKS PROPOSAL, 2022</cite>
+      </blockquote>
+    </section>
+
+    <!-- 03 ROCKET -->
+    <section class="sec sec--rocket" id="rocket" data-shot="rocket" data-chapter="ROCKET">
+      <div class="panel panel--left">
+        <h2 class="title"><span class="corner tl"></span>THE ROCKET<span class="corner tr"></span></h2>
+        <div class="subtitle">REUSABLE HYPERGOLIC SOUNDING ROCKET</div>
+        <p class="body">A 301 stainless-steel airframe coated in polyurethane against heating near the ozone layer and across the K&aacute;rm&aacute;n line. At the top, a 5&ndash;6&nbsp;kg chamber for equipment the school wanted to send to space, with cameras at three different angles. Every component was meant to be tracked, collected, refilled and reused.</p>
+        <dl class="specs">
+          <div><dt>STRUCTURAL MASS</dt><dd>150 kg</dd></div>
+          <div><dt>PROPELLANT</dt><dd>151.27 kg</dd></div>
+          <div><dt>LIFT-OFF MASS</dt><dd>301.27 kg</dd></div>
+          <div><dt>AIRFRAME</dt><dd>SS 301 <span>/ polyurethane</span></dd></div>
+          <div><dt>TANKS &amp; PLUMBING</dt><dd>SS 321 <span>/ titanium valves</span></dd></div>
+        </dl>
+      </div>
+      <div class="counter counter--side counter--l" data-reveal>
+        <div class="counter__num" data-count="3">3</div>
+        <div class="counter__lbl">CAMERA ANGLES</div>
+      </div>
+      <div class="counter counter--side counter--r" data-reveal>
+        <div class="counter__num">5&ndash;6<small>KG</small></div>
+        <div class="counter__lbl">PAYLOAD CHAMBER</div>
+      </div>
+    </section>
+
+    <!-- 04 PROPELLANT -->
+    <section class="sec sec--panel-left" id="propellant" data-shot="propellant" data-chapter="PROPELLANT" data-touch="molecules">
+      <div class="touchpad touchpad--right" data-model="molecules" aria-hidden="true"></div>
+      <div class="panel">
+        <h2 class="title"><span class="corner tl"></span>HYPERGOLIC<span class="corner tr"></span></h2>
+        <div class="subtitle">UDMH + N&#8322;O&#8324;</div>
+        <p class="body">Unsymmetrical dimethylhydrazine and dinitrogen tetroxide ignite the moment they meet: no spark, no igniter, no ignition system to fail. Both are liquid at room temperature and need no near-absolute-zero cryogenic tanks.</p>
+        <dl class="specs">
+          <div><dt>SPECIFIC IMPULSE</dt><dd>316.7 s</dd></div>
+          <div><dt>MIXTURE RATIO</dt><dd>3 : 2</dd></div>
+          <div><dt>FUEL DENSITY</dt><dd>0.793 g/cc <span>/ UDMH</span></dd></div>
+          <div><dt>OXIDIZER DENSITY</dt><dd>1.450 g/cc <span>/ N&#8322;O&#8324;</span></dd></div>
+          <div><dt>FREEZING POINTS</dt><dd>&minus;57 &deg;C <span>/ &minus;11 &deg;C</span></dd></div>
+          <div><dt>COMBUSTION TIME</dt><dd>0.31 s</dd></div>
+        </dl>
+        <div class="hint"><span class="hint__ico"></span>Drag the molecules to rotate them.</div>
+      </div>
+      <div class="mol-labels" aria-hidden="true">
+        <div class="mol-label" id="mol-label-a"><b>UDMH</b><span>(CH&#8323;)&#8322;NNH&#8322; &middot; FUEL</span></div>
+        <div class="mol-label" id="mol-label-b"><b>N&#8322;O&#8324;</b><span>DINITROGEN TETROXIDE &middot; OXIDIZER</span></div>
+      </div>
+    </section>
+
+    <!-- 05 ADVANTAGES MARQUEE + HAZARD -->
+    <section class="sec sec--marquee" id="advantages" data-shot="advantages" data-chapter="PROPELLANT">
+      <div class="marquee" id="marquee" aria-label="Recorded advantages of the propellant"></div>
+      <div class="hazard" data-reveal>
+        <div class="hazard__tag">3.3 &mdash; HAZARDS</div>
+        <p class="hazard__lead" id="hazard-lead"></p>
+        <p class="body" id="hazard-mitigation"></p>
+        <a class="link" href="#review">Read the independent hazard review &rarr;</a>
+      </div>
+    </section>
+
+    <!-- 06 ENGINE -->
+    <section class="sec sec--panel-left" id="engine" data-shot="engine" data-chapter="ENGINE" data-touch="rs25">
+      <div class="touchpad touchpad--right" data-model="rs25" aria-hidden="true"></div>
+      <div class="panel">
+        <h2 class="title"><span class="corner tl"></span>RS-25<span class="corner tr"></span></h2>
+        <div class="subtitle">THE MAIN INSPIRATION</div>
+        <p class="body">The Space Shuttle Main Engine was the project&rsquo;s principal architectural inspiration, &ldquo;with special focus on the nozzle&rdquo;. The proposal closed with renders of it. Below, the choices the team made for their own engine.</p>
+        <dl class="specs">
+          <div><dt>INJECTOR</dt><dd>Showerhead</dd></div>
+          <div><dt>CHAMBER</dt><dd>Graphite <span>/ not SS 301</span></dd></div>
+          <div><dt>NOZZLE</dt><dd>Aerospike <span>/ 35:5</span></dd></div>
+          <div><dt>BELL ALTERNATIVE</dt><dd>&epsilon; = 36.4</dd></div>
+          <div><dt>COOLING</dt><dd>5 candidates</dd></div>
+        </dl>
+        <div class="actions">
+          <button class="btn" data-explore="rs25">EXPLORE IN 3D <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m16 9.4-8.6 8.6-1.4-1.4L14.6 8H7V6h11v11h-2z" fill="currentColor"/></svg></button>
+          <button class="btn btn--ghost" data-lightbox="fig10">PAPER RENDERS</button>
+        </div>
+        <div class="hint"><span class="hint__ico"></span>Drag the engine. Tap a marker to learn what it does.</div>
+      </div>
+    </section>
+
+    <!-- 07 TURBOPUMP -->
+    <section class="sec sec--panel-right sec--tall" id="turbopump" data-shot="turbopump" data-chapter="TURBOPUMP" data-touch="turbopump">
+      <div class="touchpad touchpad--left" data-model="turbopump" aria-hidden="true"></div>
+      <div class="panel panel--sticky">
+        <h2 class="title"><span class="corner tl"></span>TURBOPUMP<span class="corner tr"></span></h2>
+        <div class="subtitle">ROTATING ASSEMBLY</div>
+        <p class="body">The bill of materials calls for two high-pressure turbopumps, gas-turbine shafts, high-psi turbines and fuel- and oxidizer-rich preburners. Keep scrolling to pull the rotating assembly out of its housing.</p>
+        <dl class="specs">
+          <div><dt>HELIUM VESSEL</dt><dd>5000 psi</dd></div>
+          <div><dt>PROPELLANT TANKS</dt><dd>3000 psi <span>/ &times;3</span></dd></div>
+          <div><dt>TURBOPUMPS</dt><dd>2 <span>/ high-pressure</span></dd></div>
+          <div><dt>PREBURNERS</dt><dd>Fuel-rich <span>/ oxidizer-rich</span></dd></div>
+        </dl>
+        <div class="actions">
+          <button class="btn" data-explore="turbopump">EXPLORE IN 3D <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m16 9.4-8.6 8.6-1.4-1.4L14.6 8H7V6h11v11h-2z" fill="currentColor"/></svg></button>
+          <button class="btn btn--ghost" data-lightbox="fig9">PAPER RENDERS</button>
+        </div>
+        <p class="credit">3D model: &ldquo;Raptor CH4 Turbopump&rdquo; by 3D Shuttle, <a href="https://www.printables.com/model/1175221-raptor-ch4-turbopump" target="_blank" rel="noopener">Printables</a>, CC BY-SA 4.0. Sectioned and re-materialled for the web.</p>
+      </div>
+    </section>
+
+    <!-- 08 FLIGHT PROFILE -->
+    <section class="sec sec--flight-intro" id="flight" data-shot="flight-intro" data-chapter="FLIGHT">
+      <div class="flight-intro">
+        <div class="kicker" data-reveal>MISSION</div>
+        <h2 class="display" data-split>PROFILE</h2>
+        <div class="subtitle" data-reveal>BALLOON TO THE K&Aacute;RM&Aacute;N LINE</div>
+        <p class="body" data-reveal>Scroll to fly the mission as the proposal planned it: a hydrogen balloon to the stratosphere, a hypergolic burn, and a climb toward 100&nbsp;km. Telemetry pressure is the International Standard Atmosphere at each altitude.</p>
+      </div>
+    </section>
+    <section class="sec sec--flight" id="flight-run" data-shot="flight" data-chapter="FLIGHT" data-hud>
+      <div class="flight-steps">
+        <div class="flight-step" data-phase="0"></div>
+        <div class="flight-step" data-phase="1"></div>
+        <div class="flight-step" data-phase="2"></div>
+        <div class="flight-step" data-phase="3"></div>
+      </div>
+    </section>
+
+    <!-- 09 APOGEE -->
+    <section class="sec sec--apogee" id="apogee" data-shot="apogee" data-chapter="APOGEE">
+      <div class="panel panel--left">
+        <h2 class="title"><span class="corner tl"></span>THE K&Aacute;RM&Aacute;N<br />LINE<span class="corner tr"></span></h2>
+        <div class="subtitle">100 KM &middot; THE EDGE OF SPACE</div>
+        <p class="body">Measured from the ground, a 30&nbsp;km balloon start leaves 70&nbsp;km for the rocket; measured from release, the goal was 100&nbsp;km more. Either way: higher than any student-led rocket before it. Then home again: the team planned to predict the landing with thrust-to-weight formulae and GPS, and recover the rocket and parachute for reuse.</p>
+        <dl class="specs">
+          <div><dt>APOGEE</dt><dd>70&ndash;100 km <span>/ by convention</span></dd></div>
+          <div><dt>TRACKING</dt><dd>4 GPS</dd></div>
+          <div><dt>RECOVERY</dt><dd>Parachute <span>/ landing mechanism</span></dd></div>
+          <div><dt>BUDGET</dt><dd>&lt; USD 25,000 <span>/ &asymp; INR 2,00,000</span></dd></div>
+        </dl>
+      </div>
+    </section>
+
+    <!-- ====================================================== dossier -->
+    <section class="sec sec--dossier-intro" id="dossier" data-shot="dossier" data-chapter="DOSSIER">
+      <div class="dossier-intro">
+        <div class="kicker" data-reveal>THE</div>
+        <h2 class="display" data-split>DOSSIER</h2>
+        <div class="subtitle" data-reveal>EVERYTHING IN THE PROPOSAL, IN FULL</div>
+        <p class="body" data-reveal>Feed system, materials, injector, nozzles, cooling, every calculation, the balloon trade study, permits, the full bill of materials and the independent review, transcribed from the original proposal without omission.</p>
+        <div class="toc" id="dossier-toc"></div>
+      </div>
+    </section>
+
+    <div class="dossier" id="dossier-body" data-shot-region="dossier"></div>
+
+    <!-- ====================================================== why -->
+    <section class="sec sec--why" id="why" data-shot="why" data-chapter="WHY">
+      <div class="why">
+        <p class="why__lead" data-reveal id="why-lead"></p>
+        <h2 class="why__big" data-split-words>BECAUSE THEY CAN.</h2>
+      </div>
+    </section>
+
+    <!-- ====================================================== footer -->
+    <footer class="sec sec--footer" id="end" data-shot="end" data-chapter="END">
+      <div class="end">
+        <div class="kicker" data-reveal>READ THE</div>
+        <h2 class="display display--sm" data-split>ORIGINAL PROPOSAL</h2>
+        <p class="body" data-reveal id="end-cite"></p>
+        <div class="actions" data-reveal>
+          <a class="btn" href="./paper/project-aks-original-proposal.pdf" target="_blank" rel="noopener">READ THE ORIGINAL PROPOSAL <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m16 9.4-8.6 8.6-1.4-1.4L14.6 8H7V6h11v11h-2z" fill="currentColor"/></svg></a>
+          <a class="btn btn--ghost" href="#sources">SOURCES &amp; CREDITS</a>
+        </div>
+      </div>
+      <div class="footer-bar">
+        <div class="footer-bar__mark">PROJECT<i>:</i>AKS</div>
+        <p class="footer-bar__note">An interactive companion to the Project AKS original proposal. For educational purposes only. Not affiliated with or endorsed by NASA, Aerojet Rocketdyne, SpaceX, ISRO or GrabCAD. Design inspired by &ldquo;Mission: Mars&rdquo; by Peach Worlds.</p>
+        <p class="footer-bar__quote">&ldquo;Space &mdash; the final frontier.&rdquo;</p>
+      </div>
+    </footer>
+  </main>
+
+  <!-- ====================================================== explore (3D viewer) -->
+  <div class="explore" id="explore" role="dialog" aria-modal="true" aria-labelledby="explore-title" hidden>
+    <div class="explore__top">
+      <div>
+        <div class="explore__kicker">EXPLORE IN 3D</div>
+        <h3 class="explore__title" id="explore-title">ROCKOON</h3>
+      </div>
+      <button class="icon-btn icon-btn--lg" id="explore-close" aria-label="Close 3D explorer">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 5l14 14M19 5L5 19" stroke="currentColor" stroke-width="1.6"/></svg>
+      </button>
+    </div>
+    <div class="explore__card" id="explore-card" hidden>
+      <div class="explore__card-k" id="explore-card-k"></div>
+      <div class="explore__card-t" id="explore-card-t"></div>
+      <p class="explore__card-d" id="explore-card-d"></p>
+    </div>
+    <div class="explore__bottom">
+      <div class="explore__parts" id="explore-parts"></div>
+      <div class="explore__controls">
+        <label class="slider" id="explore-explode-wrap"><span>EXPLODE</span><input type="range" min="0" max="1" step="0.001" value="0" id="explore-explode" /></label>
+        <button class="btn btn--ghost btn--sm" id="explore-spin" aria-pressed="true">AUTO-ROTATE</button>
+        <button class="btn btn--ghost btn--sm" id="explore-reset">RESET VIEW</button>
+      </div>
+      <div class="explore__hint">Drag to rotate &middot; pinch or scroll to zoom &middot; two fingers to pan &middot; tap markers</div>
+    </div>
+  </div>
+
+  <!-- ====================================================== lightbox -->
+  <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Figure" hidden>
+    <button class="icon-btn icon-btn--lg lightbox__close" id="lightbox-close" aria-label="Close figure">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 5l14 14M19 5L5 19" stroke="currentColor" stroke-width="1.6"/></svg>
+    </button>
+    <figure class="lightbox__fig">
+      <div class="lightbox__imgs" id="lightbox-imgs"></div>
+      <figcaption id="lightbox-cap"></figcaption>
+    </figure>
+  </div>
+
+  <noscript><div class="noscript">This story needs JavaScript and WebGL. The original proposal is available as a <a href="./paper/project-aks-original-proposal.pdf">PDF</a>.</div></noscript>
+  <script type="module" src="./src/main.js"></script>
+</body>
+</html>
